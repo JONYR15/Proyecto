@@ -4,15 +4,18 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.proyecto.Managed.CustomerManaged;
+import com.example.proyecto.R;
 import com.example.proyecto.model.Customers;
 
 import java.util.List;
 
-public class CustomerAdapter RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
+public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
 
 private List<Customers> items;
 
@@ -39,7 +42,7 @@ public static class CustomerViewHolder extends RecyclerView.ViewHolder {
         ((ImageButton) v.findViewById(R.id.ibEditar)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), GestionarCustomer.class);
+                Intent intent = new Intent(v.getContext(), CustomerManaged.class);
                 intent.putExtra("id", id);
                 intent.putExtra("accion", 1);
                 v.getContext().startActivity(intent);
@@ -50,7 +53,7 @@ public static class CustomerViewHolder extends RecyclerView.ViewHolder {
         ((ImageButton) v.findViewById(R.id.ibEliminar)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), GestionarCustomer.class);
+                Intent intent = new Intent(v.getContext(), CustomerManaged.class);
                 intent.putExtra("idMateria", id);
                 intent.putExtra("accion", 2);
                 v.getContext().startActivity(intent);
@@ -72,17 +75,17 @@ public static class CustomerViewHolder extends RecyclerView.ViewHolder {
     @Override
     public CustomerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.grupo_card, viewGroup, false);
+                .inflate(R.layout.customer_card, viewGroup, false);
         return new CustomerViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(CustomerViewHolder viewHolder, int i) {
-        viewHolder.id = items.get(i).getIdMateria();
+        viewHolder.id = items.get(i).getId();
         viewHolder.idCustomer.setText("ID: " + Integer.toString(items.get(i).getId()));
-        viewHolder.name.setText("Nombre: " + items.get(i).getMateria());
-        viewHolder.lastName.setText("Apellidos:" + Integer.toString(items.get(i).getGrupo()));
-        viewHolder.numberPhone.setText("Numero Celular:" + items.get(i).getHorario());
-        viewHolder.email.setText("Email:" + items.get(i).getHorario());
+        viewHolder.name.setText("Nombre: " + items.get(i).getName());
+        viewHolder.lastName.setText("Apellidos:" + items.get(i).getLastName());
+        viewHolder.numberPhone.setText("Numero Celular:" + items.get(i).getNumberPhone());
+        viewHolder.email.setText("Email:" + items.get(i).getEmail());
     }
 }

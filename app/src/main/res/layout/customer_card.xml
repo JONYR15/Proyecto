@@ -44,7 +44,7 @@
                 app:srcCompat="@android:drawable/ic_menu_delete" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -52,7 +52,7 @@
                 tools:layout_editor_absoluteY="16dp" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -60,7 +60,7 @@
                 tools:layout_editor_absoluteY="65dp" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tvLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -68,7 +68,7 @@
                 tools:layout_editor_absoluteY="114dp" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tvNumberPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -76,7 +76,7 @@
                 tools:layout_editor_absoluteY="35dp" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"

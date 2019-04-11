@@ -9,6 +9,7 @@
     tools:showIn="@layout/activity_customers">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="395dp"
         android:layout_height="659dp"
         app:layout_constraintBottom_toBottomOf="parent"

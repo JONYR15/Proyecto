@@ -20,11 +20,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomersActivity extends AppCompatActivity {
 
-    private static List<Customers> customers;
+    private static List<Customers> customers = new ArrayList<>();
 
     private DatabaseReference infoReference;
 

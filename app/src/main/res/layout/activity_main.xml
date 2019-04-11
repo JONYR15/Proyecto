@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/ivCustomer"
+    <Button
+        android:id="@+id/button"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
-        android:contentDescription="Clientes"
+        android:background="@mipmap/baseline_person_outline_black_48"
+        android:onClick="customers"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/baseline_person_outline_black_48" />
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

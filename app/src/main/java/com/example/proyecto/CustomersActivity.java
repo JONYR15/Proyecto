@@ -11,12 +11,16 @@ import android.view.View;
 
 import com.example.proyecto.Adapter.CustomerAdapter;
 import com.example.proyecto.model.Customers;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
 public class CustomersActivity extends AppCompatActivity {
 
     private static List<Customers> customers;
+
+    private DatabaseReference infoReference;
 
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
@@ -37,6 +41,9 @@ public class CustomersActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        infoReference = database.getReference(References.INFO_REFERENCE);
 
         recycler = (RecyclerView) findViewById(R.id.recycler);
         recycler.setHasFixedSize(true);

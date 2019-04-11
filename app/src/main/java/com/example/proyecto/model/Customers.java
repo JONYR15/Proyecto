@@ -25,6 +25,20 @@ public class Customers {
         this.pass = pass;
     }
 
+    @Override
+    public String toString() {
+        return "Customers{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", lastName=" + lastName +
+                ", numberPhone=" + numberPhone +
+                ", email" + email +
+                ", address" + address +
+                ", user" + user +
+                ", pass" + pass +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

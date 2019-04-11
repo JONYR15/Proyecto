@@ -44,7 +44,7 @@ public static class CustomerViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CustomerManaged.class);
                 intent.putExtra("id", id);
-                intent.putExtra("accion", 1);
+                intent.putExtra("accion", 2);
                 v.getContext().startActivity(intent);
                 Toast.makeText(v.getContext(), "Editando " + name.getText().toString(), Toast.LENGTH_SHORT).show();
             }
@@ -55,7 +55,7 @@ public static class CustomerViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CustomerManaged.class);
                 intent.putExtra("idMateria", id);
-                intent.putExtra("accion", 2);
+                intent.putExtra("accion", 3);
                 v.getContext().startActivity(intent);
                 Toast.makeText(v.getContext(), "Eliminar " + name.getText().toString(), Toast.LENGTH_SHORT).show();
             }

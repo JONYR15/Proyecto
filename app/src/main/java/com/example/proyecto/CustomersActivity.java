@@ -1,5 +1,6 @@
 package com.example.proyecto;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.proyecto.Adapter.CustomerAdapter;
+import com.example.proyecto.Managed.CustomerManaged;
 import com.example.proyecto.model.Customers;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,8 +46,9 @@ public class CustomersActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(view.getContext(), CustomerManaged.class);
+                intent.putExtra("accion", 1);
+                view.getContext().startActivity(intent);
             }
         });
 

@@ -7,20 +7,18 @@ public class Customers {
     private String lastName;
     private String numberPhone;
     private String email;
-    private String address;
     private String user;
     private String pass;
 
     public Customers() {
     }
 
-    public Customers(Integer id, String name, String lastName, String numberPhone, String email, String address, String user, String pass) {
+    public Customers(Integer id, String name, String lastName, String numberPhone, String email, String user, String pass) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.numberPhone = numberPhone;
         this.email = email;
-        this.address = address;
         this.user = user;
         this.pass = pass;
     }
@@ -33,7 +31,6 @@ public class Customers {
                 ", lastName=" + lastName +
                 ", numberPhone=" + numberPhone +
                 ", email" + email +
-                ", address" + address +
                 ", user" + user +
                 ", pass" + pass +
                 '}';
@@ -77,14 +74,6 @@ public class Customers {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getUser() {

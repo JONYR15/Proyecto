@@ -66,6 +66,7 @@ public class CustomersActivity extends AppCompatActivity {
                         Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             Customers customer = data.getValue(Customers.class);
+                            System.out.println(customer.getId()+customer.getName()+customer.getEmail());
                             customers.add(customer);
                         }
 

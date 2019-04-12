@@ -48,12 +48,13 @@ public class CustomerManaged extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         infoReference = database.getReference(References.INFO_REFERENCE);
 
-        switch (getIntent().getIntExtra("accion", 0)) {
+        switch (getIntent().getIntExtra("accion", 1)) {
             case 1:
                 crear.setVisibility(Button.VISIBLE);
                 editar.setVisibility(Button.GONE);
                 eliminar.setVisibility(Button.GONE);
 
+                break;
             case 2:
                 crear.setVisibility(Button.GONE);
                 editar.setVisibility(Button.VISIBLE);

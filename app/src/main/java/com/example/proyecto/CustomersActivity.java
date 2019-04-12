@@ -52,19 +52,18 @@ public class CustomersActivity extends AppCompatActivity {
             }
         });
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        infoReference = database.getReference(References.INFO_REFERENCE).child(References.CLIENTES_REFERENCE).push();
+        infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.CLIENTES_REFERENCE);
 
         infoReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         customers.clear();
-
+                        System.out.println(dataSnapshot.getChildrenCount());
                         Log.w("TodoApp", "getUser:onCancelled " + dataSnapshot.toString());
                         Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
+                            Log.d("FragmentActivity","Test Customer" + data.getKey());
                             Customers customer = data.getValue(Customers.class);
                             System.out.println(customer.getId()+customer.getName()+customer.getEmail());
                             customers.add(customer);

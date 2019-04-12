@@ -80,7 +80,7 @@ public class CustomerManaged extends AppCompatActivity {
     }
 
 
-    public void Registrar(View view) {
+    public void createCustomer(View view) {
         int id = Integer.parseInt(((EditText) findViewById(R.id.etId)).getText().toString());
         String name = this.name.getText().toString();
         String lastName = this.lastName.getText().toString();

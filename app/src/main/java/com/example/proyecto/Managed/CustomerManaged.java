@@ -135,8 +135,9 @@ public class CustomerManaged extends AppCompatActivity {
             String pass = this.pass.getText().toString();
             Customers customer = new Customers(id, name, lastName, numberPhone, email, user, pass);
             infoReference.child(References.CLIENTES_REFERENCE).push().setValue(customer);
-            intentClientes(view);
+
             limpiar();
+            finish();
         } else {
             Toast.makeText(this, "El usuario ya existe.", Toast.LENGTH_SHORT).show();
         }

@@ -54,7 +54,7 @@ public class CustomersActivity extends AppCompatActivity {
 
         infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.CLIENTES_REFERENCE);
 
-        infoReference.addListenerForSingleValueEvent(
+        infoReference.addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -65,7 +65,6 @@ public class CustomersActivity extends AppCompatActivity {
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             Log.d("FragmentActivity","Test Customer" + data.getKey());
                             Customers customer = data.getValue(Customers.class);
-                            System.out.println(customer.getId()+customer.getName()+customer.getEmail());
                             customers.add(customer);
                         }
 

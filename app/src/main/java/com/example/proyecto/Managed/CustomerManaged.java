@@ -42,6 +42,8 @@ public class CustomerManaged extends AppCompatActivity {
     private EditText user;
     private EditText pass;
 
+    private Customers requestedCustomer;
+
     private DatabaseReference infoReference;
 
     private DatabaseReference infoReferenceCustomers;
@@ -78,6 +80,7 @@ public class CustomerManaged extends AppCompatActivity {
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             Log.d("FragmentActivity", "Test Customer" + data.getKey());
                             Customers customer = data.getValue(Customers.class);
+                            customer.setKey(data.getKey());
                             customers.add(customer);
                         }
                     }
@@ -90,42 +93,55 @@ public class CustomerManaged extends AppCompatActivity {
                 }
         );
 
-        switch (getIntent().getIntExtra("accion", 1)) {
-            case 1:
-                crear.setVisibility(Button.VISIBLE);
-                editar.setVisibility(Button.GONE);
-                eliminar.setVisibility(Button.GONE);
+            switch (getIntent().getIntExtra("accion", 1)) {
+                case 1:
+                    crear.setVisibility(Button.VISIBLE);
+                    editar.setVisibility(Button.GONE);
+                    eliminar.setVisibility(Button.GONE);
 
-                break;
-            case 2:
-                crear.setVisibility(Button.GONE);
-                editar.setVisibility(Button.VISIBLE);
-                eliminar.setVisibility(Button.GONE);
+                    break;
+                case 2:
+                    crear.setVisibility(Button.GONE);
+                    editar.setVisibility(Button.VISIBLE);
+                    eliminar.setVisibility(Button.GONE);
+                    id.setEnabled(false);
 
+                    for (Customers customer : customers) {
+                        if (customer.getKey().equals(getIntent().getStringExtra("id"))) {
+                            requestedCustomer = customer;
 
-                break;
-            case 3:
-                crear.setVisibility(Button.GONE);
-                editar.setVisibility(Button.GONE);
-                eliminar.setVisibility(Button.VISIBLE);
+                            id.setText(Integer.toString(customer.getId()));
+                            name.setText(customer.getName());
+                            lastName.setText(customer.getLastName());
+                            numberPhone.setText(customer.getNumberPhone());
+                            email.setText(customer.getEmail());
+                            user.setText(customer.getUser());
+                            pass.setText(customer.getPass());
+                            break;
+                        }
+                    }
 
-                id.setEnabled(false);
-                name.setEnabled(false);
-                lastName.setEnabled(false);
-                numberPhone.setEnabled(false);
-                email.setEnabled(false);
-                user.setEnabled(false);
-                pass.setEnabled(false);
+                    break;
+                case 3:
+                    crear.setVisibility(Button.GONE);
+                    editar.setVisibility(Button.GONE);
+                    eliminar.setVisibility(Button.VISIBLE);
 
-                break;
-        }
+                    id.setEnabled(false);
+                    name.setEnabled(false);
+                    lastName.setEnabled(false);
+                    numberPhone.setEnabled(false);
+                    email.setEnabled(false);
+                    user.setEnabled(false);
+                    pass.setEnabled(false);
 
+                    break;
+            }
     }
 
 
     public void createCustomer(View view) {
-        infoReference = database.getReference(References.INFO_REFERENCE);
-        if (!existe()) {
+        if (!existe("create", null)) {
             int id = Integer.parseInt(((EditText) findViewById(R.id.etId)).getText().toString());
             String name = this.name.getText().toString();
             String lastName = this.lastName.getText().toString();
@@ -144,11 +160,38 @@ public class CustomerManaged extends AppCompatActivity {
 
     }
 
-    public Boolean existe() {
+    public void editCustomer(View view) {
+        if (!existe("edit", requestedCustomer)) {
+            requestedCustomer.setId(Integer.parseInt(((EditText) findViewById(R.id.etId)).getText().toString()));
+            requestedCustomer.setName(this.name.getText().toString());
+            requestedCustomer.setLastName(this.lastName.getText().toString());
+            requestedCustomer.setNumberPhone(this.numberPhone.getText().toString());
+            requestedCustomer.setEmail(this.email.getText().toString());
+            requestedCustomer.setUser(this.user.getText().toString());
+            requestedCustomer.setPass(this.pass.getText().toString());
+            infoReference.child(References.CLIENTES_REFERENCE).child(requestedCustomer.getKey()).setValue(requestedCustomer);
+
+            limpiar();
+            finish();
+        } else {
+            Toast.makeText(this, "El usuario ya existe.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public Boolean existe(String accion, Customers requestedCustomer) {
         Boolean existe = Boolean.FALSE;
         for (Customers customer : customers) {
-            if (customer.getId() == Integer.parseInt(id.getText().toString())) {
-                existe = Boolean.TRUE;
+            switch (accion) {
+                case "create":
+                    if (customer.getId() == Integer.parseInt(id.getText().toString())) {
+                        existe = Boolean.TRUE;
+                    }
+                    break;
+                case "edit":
+                    if (customer.getId() == Integer.parseInt(id.getText().toString()) && !customer.getKey().equals(requestedCustomer.getKey())) {
+                        existe = Boolean.TRUE;
+                    }
+                    break;
             }
         }
         return existe;

@@ -93,4 +93,11 @@ public class CustomersActivity extends AppCompatActivity {
 
     }
 
+    public static List<Customers> getCustomers() {
+        return customers;
+    }
+
+    public static void setCustomers(List<Customers> customers) {
+        CustomersActivity.customers = customers;
+    }
 }

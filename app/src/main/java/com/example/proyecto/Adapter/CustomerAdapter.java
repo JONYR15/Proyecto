@@ -27,7 +27,7 @@ public static class CustomerViewHolder extends RecyclerView.ViewHolder {
     private TextView numberPhone;
     private TextView email;
 
-    public Integer id;
+    public String key;
 
     public CustomerViewHolder(View v) {
         super(v);
@@ -43,7 +43,7 @@ public static class CustomerViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CustomerManaged.class);
-                intent.putExtra("id", id);
+                intent.putExtra("id", key);
                 intent.putExtra("accion", 2);
                 v.getContext().startActivity(intent);
                 Toast.makeText(v.getContext(), "Editando " + name.getText().toString(), Toast.LENGTH_SHORT).show();
@@ -54,7 +54,7 @@ public static class CustomerViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CustomerManaged.class);
-                intent.putExtra("idMateria", id);
+                intent.putExtra("id", key);
                 intent.putExtra("accion", 3);
                 v.getContext().startActivity(intent);
                 Toast.makeText(v.getContext(), "Eliminar " + name.getText().toString(), Toast.LENGTH_SHORT).show();
@@ -81,11 +81,12 @@ public static class CustomerViewHolder extends RecyclerView.ViewHolder {
 
     @Override
     public void onBindViewHolder(CustomerViewHolder viewHolder, int i) {
-        viewHolder.id = items.get(i).getId();
+        System.out.println("Key de prueba para ver si funciona"+items.get(i).getKey());
+        viewHolder.key = items.get(i).getKey();
         viewHolder.idCustomer.setText("ID: " + Integer.toString(items.get(i).getId()));
         viewHolder.name.setText("Nombre: " + items.get(i).getName());
-        viewHolder.lastName.setText("Apellidos:" + items.get(i).getLastName());
-        viewHolder.numberPhone.setText("Numero Celular:" + items.get(i).getNumberPhone());
-        viewHolder.email.setText("Email:" + items.get(i).getEmail());
+        viewHolder.lastName.setText("Apellidos: " + items.get(i).getLastName());
+        viewHolder.numberPhone.setText("Numero Celular: " + items.get(i).getNumberPhone());
+        viewHolder.email.setText("Email: " + items.get(i).getEmail());
     }
 }

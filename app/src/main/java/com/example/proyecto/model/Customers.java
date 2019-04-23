@@ -2,6 +2,7 @@ package com.example.proyecto.model;
 
 public class Customers {
 
+    private String key;
     private Integer id;
     private String name;
     private String lastName;
@@ -23,6 +24,17 @@ public class Customers {
         this.pass = pass;
     }
 
+    public Customers(String key, Integer id, String name, String lastName, String numberPhone, String email, String user, String pass) {
+        this.key = key;
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.numberPhone = numberPhone;
+        this.email = email;
+        this.user = user;
+        this.pass = pass;
+    }
+
     @Override
     public String toString() {
         return "Customers{" +
@@ -34,6 +46,14 @@ public class Customers {
                 ", user" + user +
                 ", pass" + pass +
                 '}';
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public Integer getId() {

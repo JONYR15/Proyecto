@@ -65,6 +65,7 @@ public class CustomersActivity extends AppCompatActivity {
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             Log.d("FragmentActivity","Test Customer" + data.getKey());
                             Customers customer = data.getValue(Customers.class);
+                            customer.setKey(data.getKey());
                             customers.add(customer);
                         }
 

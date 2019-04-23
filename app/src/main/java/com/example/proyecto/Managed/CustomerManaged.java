@@ -1,5 +1,6 @@
 package com.example.proyecto.Managed;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.proyecto.CustomersActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.References;
 import com.example.proyecto.model.Customers;
@@ -20,10 +22,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CustomerManaged extends AppCompatActivity {
 
     private static List<Customers> customers = new ArrayList<>();
+
+    private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private Button crear;
     private Button editar;
@@ -38,6 +43,8 @@ public class CustomerManaged extends AppCompatActivity {
     private EditText pass;
 
     private DatabaseReference infoReference;
+
+    private DatabaseReference infoReferenceCustomers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +63,32 @@ public class CustomerManaged extends AppCompatActivity {
         user = findViewById(R.id.etUser);
         pass = findViewById(R.id.etPass);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
         infoReference = database.getReference(References.INFO_REFERENCE);
+
+        infoReferenceCustomers = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.CLIENTES_REFERENCE);
+
+        infoReferenceCustomers.addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        customers.clear();
+                        System.out.println(dataSnapshot.getChildrenCount());
+                        Log.w("TodoApp", "getUser:onCancelled " + dataSnapshot.toString());
+                        Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
+                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+                            Log.d("FragmentActivity", "Test Customer" + data.getKey());
+                            Customers customer = data.getValue(Customers.class);
+                            customers.add(customer);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.w("TodoApp", "getUser:onCancelled", databaseError.toException());
+
+                    }
+                }
+        );
 
         switch (getIntent().getIntExtra("accion", 1)) {
             case 1:
@@ -93,7 +124,8 @@ public class CustomerManaged extends AppCompatActivity {
 
 
     public void createCustomer(View view) {
-        if (existe()) {
+        infoReference = database.getReference(References.INFO_REFERENCE);
+        if (!existe()) {
             int id = Integer.parseInt(((EditText) findViewById(R.id.etId)).getText().toString());
             String name = this.name.getText().toString();
             String lastName = this.lastName.getText().toString();
@@ -103,7 +135,9 @@ public class CustomerManaged extends AppCompatActivity {
             String pass = this.pass.getText().toString();
             Customers customer = new Customers(id, name, lastName, numberPhone, email, user, pass);
             infoReference.child(References.CLIENTES_REFERENCE).push().setValue(customer);
-        }else{
+            intentClientes(view);
+            limpiar();
+        } else {
             Toast.makeText(this, "El usuario ya existe.", Toast.LENGTH_SHORT).show();
         }
 
@@ -111,37 +145,29 @@ public class CustomerManaged extends AppCompatActivity {
 
     public Boolean existe() {
         Boolean existe = Boolean.FALSE;
-        infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.CLIENTES_REFERENCE);
-        infoReference.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        System.out.println(dataSnapshot.getChildrenCount());
-                        Log.w("TodoApp", "getUser:onCancelled " + dataSnapshot.toString());
-                        Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
-                        for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            Log.d("FragmentActivity", "Test Customer" + data.getKey());
-                            Customers customer = data.getValue(Customers.class);
-                            System.out.println(customer.getId() + customer.getName() + customer.getEmail());
-                            customers.add(customer);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.w("TodoApp", "getUser:onCancelled", databaseError.toException());
-
-                    }
-                }
-        );
-
         for (Customers customer : customers) {
-            if (customer.getId().equals(id.getText().toString())) {
+            if (customer.getId() == Integer.parseInt(id.getText().toString())) {
                 existe = Boolean.TRUE;
             }
         }
-
         return existe;
+    }
+
+    public void intentClientes(View view) {
+        super.onRestart();
+        Intent intent = new Intent(view.getContext(), CustomersActivity.class);  //your class
+        startActivity(intent);
+        finish();
+    }
+
+    public void limpiar() {
+        id.setText("");
+        name.setText("");
+        lastName.setText("");
+        numberPhone.setText("");
+        email.setText("");
+        user.setText("");
+        pass.setText("");
     }
 
 }

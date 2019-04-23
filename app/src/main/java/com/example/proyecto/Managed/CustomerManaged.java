@@ -34,6 +34,8 @@ public class CustomerManaged extends AppCompatActivity {
     private Button editar;
     private Button eliminar;
 
+    private String key;
+
     private EditText id;
     private EditText name;
     private EditText lastName;
@@ -107,7 +109,7 @@ public class CustomerManaged extends AppCompatActivity {
                     id.setEnabled(false);
 
                     for (Customers customer : customers) {
-                        if (customer.getKey().equals(getIntent().getStringExtra("id"))) {
+                        if (customer.getKey().equals(getIntent().getStringExtra("key"))) {
                             requestedCustomer = customer;
 
                             id.setText(Integer.toString(customer.getId()));
@@ -162,14 +164,15 @@ public class CustomerManaged extends AppCompatActivity {
 
     public void editCustomer(View view) {
         if (!existe("edit", requestedCustomer)) {
-            requestedCustomer.setId(Integer.parseInt(((EditText) findViewById(R.id.etId)).getText().toString()));
-            requestedCustomer.setName(this.name.getText().toString());
-            requestedCustomer.setLastName(this.lastName.getText().toString());
-            requestedCustomer.setNumberPhone(this.numberPhone.getText().toString());
-            requestedCustomer.setEmail(this.email.getText().toString());
-            requestedCustomer.setUser(this.user.getText().toString());
-            requestedCustomer.setPass(this.pass.getText().toString());
-            infoReference.child(References.CLIENTES_REFERENCE).child(requestedCustomer.getKey()).setValue(requestedCustomer);
+            int id = Integer.parseInt(((EditText) findViewById(R.id.etId)).getText().toString());
+            String name = this.name.getText().toString();
+            String lastName = this.lastName.getText().toString();
+            String numberPhone = this.numberPhone.getText().toString();
+            String email = this.email.getText().toString();
+            String user = this.user.getText().toString();
+            String pass = this.pass.getText().toString();
+            Customers customer = new Customers(id, name, lastName, numberPhone, email, user, pass);
+            infoReference.child(References.CLIENTES_REFERENCE).child(requestedCustomer.getKey()).setValue(customer);
 
             limpiar();
             finish();

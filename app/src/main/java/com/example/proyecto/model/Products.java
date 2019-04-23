@@ -2,7 +2,7 @@ package com.example.proyecto.model;
 
 public class Products {
 
-    private String key
+    private String key;
     private Integer id;
     private String description;
     private String image;

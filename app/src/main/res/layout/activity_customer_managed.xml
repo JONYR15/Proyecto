@@ -118,7 +118,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="500dp"
-        android:onClick="eliminarGrupo"
+        android:onClick="deleteCustomer"
         android:text="Eliminar"
         app:layout_constraintStart_toEndOf="@+id/etPass"
         app:layout_constraintTop_toTopOf="parent" />

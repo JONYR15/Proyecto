@@ -10,7 +10,7 @@
         android:id="@+id/btCrear"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="500dp"
         android:onClick="createCustomer"
         android:text="Crear"
@@ -33,6 +33,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="500dp"
+        android:onClick="editCustomer"
         android:text="Editar"
         app:layout_constraintStart_toEndOf="@+id/etPass"
         app:layout_constraintTop_toTopOf="parent" />
@@ -117,7 +118,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="500dp"
-        android:onClick="eliminarGrupo"
+        android:onClick="deleteCustomer"
         android:text="Eliminar"
         app:layout_constraintStart_toEndOf="@+id/etPass"
         app:layout_constraintTop_toTopOf="parent" />

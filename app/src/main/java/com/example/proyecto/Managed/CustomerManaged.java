@@ -26,8 +26,6 @@ import java.util.Objects;
 
 public class CustomerManaged extends AppCompatActivity {
 
-    private static List<Customers> customers = new ArrayList<>();
-
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private Button crear;
@@ -69,32 +67,6 @@ public class CustomerManaged extends AppCompatActivity {
 
         infoReference = database.getReference(References.INFO_REFERENCE);
 
-        infoReferenceCustomers = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.CLIENTES_REFERENCE);
-
-        infoReferenceCustomers.addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        customers.clear();
-                        System.out.println(dataSnapshot.getChildrenCount());
-                        Log.w("TodoApp", "getUser:onCancelled " + dataSnapshot.toString());
-                        Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
-                        for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            Log.d("FragmentActivity", "Test Customer" + data.getKey());
-                            Customers customer = data.getValue(Customers.class);
-                            customer.setKey(data.getKey());
-                            customers.add(customer);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.w("TodoApp", "getUser:onCancelled", databaseError.toException());
-
-                    }
-                }
-        );
-
         switch (getIntent().getIntExtra("accion", 1)) {
             case 1:
                 crear.setVisibility(Button.VISIBLE);
@@ -107,7 +79,7 @@ public class CustomerManaged extends AppCompatActivity {
                 editar.setVisibility(Button.VISIBLE);
                 eliminar.setVisibility(Button.GONE);
 
-                for (Customers customer : customers) {
+                for (Customers customer : CustomersActivity.getCustomers()) {
                     if (customer.getKey().equals(getIntent().getStringExtra("key"))) {
                         requestedCustomer = customer;
 
@@ -128,7 +100,7 @@ public class CustomerManaged extends AppCompatActivity {
                 editar.setVisibility(Button.GONE);
                 eliminar.setVisibility(Button.VISIBLE);
 
-                for (Customers customer : customers) {
+                for (Customers customer : CustomersActivity.getCustomers()) {
                     if (customer.getKey().equals(getIntent().getStringExtra("key"))) {
                         requestedCustomer = customer;
 
@@ -203,7 +175,7 @@ public class CustomerManaged extends AppCompatActivity {
 
     public Boolean existe(String accion, Customers requestedCustomer) {
         Boolean existe = Boolean.FALSE;
-        for (Customers customer : customers) {
+        for (Customers customer : CustomersActivity.getCustomers()) {
             switch (accion) {
                 case "create":
                     if (customer.getId() == Integer.parseInt(id.getText().toString())) {

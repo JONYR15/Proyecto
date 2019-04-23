@@ -95,50 +95,64 @@ public class CustomerManaged extends AppCompatActivity {
                 }
         );
 
-            switch (getIntent().getIntExtra("accion", 1)) {
-                case 1:
-                    crear.setVisibility(Button.VISIBLE);
-                    editar.setVisibility(Button.GONE);
-                    eliminar.setVisibility(Button.GONE);
+        switch (getIntent().getIntExtra("accion", 1)) {
+            case 1:
+                crear.setVisibility(Button.VISIBLE);
+                editar.setVisibility(Button.GONE);
+                eliminar.setVisibility(Button.GONE);
 
-                    break;
-                case 2:
-                    crear.setVisibility(Button.GONE);
-                    editar.setVisibility(Button.VISIBLE);
-                    eliminar.setVisibility(Button.GONE);
-                    id.setEnabled(false);
+                break;
+            case 2:
+                crear.setVisibility(Button.GONE);
+                editar.setVisibility(Button.VISIBLE);
+                eliminar.setVisibility(Button.GONE);
 
-                    for (Customers customer : customers) {
-                        if (customer.getKey().equals(getIntent().getStringExtra("key"))) {
-                            requestedCustomer = customer;
+                for (Customers customer : customers) {
+                    if (customer.getKey().equals(getIntent().getStringExtra("key"))) {
+                        requestedCustomer = customer;
 
-                            id.setText(Integer.toString(customer.getId()));
-                            name.setText(customer.getName());
-                            lastName.setText(customer.getLastName());
-                            numberPhone.setText(customer.getNumberPhone());
-                            email.setText(customer.getEmail());
-                            user.setText(customer.getUser());
-                            pass.setText(customer.getPass());
-                            break;
-                        }
+                        id.setText(Integer.toString(customer.getId()));
+                        name.setText(customer.getName());
+                        lastName.setText(customer.getLastName());
+                        numberPhone.setText(customer.getNumberPhone());
+                        email.setText(customer.getEmail());
+                        user.setText(customer.getUser());
+                        pass.setText(customer.getPass());
+                        break;
                     }
+                }
 
-                    break;
-                case 3:
-                    crear.setVisibility(Button.GONE);
-                    editar.setVisibility(Button.GONE);
-                    eliminar.setVisibility(Button.VISIBLE);
+                break;
+            case 3:
+                crear.setVisibility(Button.GONE);
+                editar.setVisibility(Button.GONE);
+                eliminar.setVisibility(Button.VISIBLE);
 
-                    id.setEnabled(false);
-                    name.setEnabled(false);
-                    lastName.setEnabled(false);
-                    numberPhone.setEnabled(false);
-                    email.setEnabled(false);
-                    user.setEnabled(false);
-                    pass.setEnabled(false);
+                for (Customers customer : customers) {
+                    if (customer.getKey().equals(getIntent().getStringExtra("key"))) {
+                        requestedCustomer = customer;
 
-                    break;
-            }
+                        id.setText(Integer.toString(customer.getId()));
+                        name.setText(customer.getName());
+                        lastName.setText(customer.getLastName());
+                        numberPhone.setText(customer.getNumberPhone());
+                        email.setText(customer.getEmail());
+                        user.setText(customer.getUser());
+                        pass.setText(customer.getPass());
+                        break;
+                    }
+                }
+
+                id.setEnabled(false);
+                name.setEnabled(false);
+                lastName.setEnabled(false);
+                numberPhone.setEnabled(false);
+                email.setEnabled(false);
+                user.setEnabled(false);
+                pass.setEnabled(false);
+
+                break;
+        }
     }
 
 
@@ -179,6 +193,12 @@ public class CustomerManaged extends AppCompatActivity {
         } else {
             Toast.makeText(this, "El usuario ya existe.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void deleteCustomer(View view) {
+        infoReference.child(References.CLIENTES_REFERENCE).child(requestedCustomer.getKey()).removeValue();
+        limpiar();
+        finish();
     }
 
     public Boolean existe(String accion, Customers requestedCustomer) {

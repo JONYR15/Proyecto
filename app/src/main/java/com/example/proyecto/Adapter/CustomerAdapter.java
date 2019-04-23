@@ -81,7 +81,6 @@ public static class CustomerViewHolder extends RecyclerView.ViewHolder {
 
     @Override
     public void onBindViewHolder(CustomerViewHolder viewHolder, int i) {
-        System.out.println("Key de prueba para ver si funciona"+items.get(i).getKey());
         viewHolder.key = items.get(i).getKey();
         viewHolder.idCustomer.setText("ID: " + Integer.toString(items.get(i).getId()));
         viewHolder.name.setText("Nombre: " + items.get(i).getName());

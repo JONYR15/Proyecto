@@ -19,4 +19,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(view.getContext(), CustomersActivity.class);
         view.getContext().startActivity(intent);
     }
+
+    public void products(View view){
+        Intent intent = new Intent(view.getContext(), ProductActivity.class);
+        view.getContext().startActivity(intent);
+    }
 }

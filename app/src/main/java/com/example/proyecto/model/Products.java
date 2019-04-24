@@ -2,10 +2,9 @@ package com.example.proyecto.model;
 
 public class Products {
 
-    private String key
+    private String key;
     private Integer id;
     private String description;
-    private String image;
     private Integer quantity;
     private Double cost;
     private Double sale;
@@ -13,20 +12,18 @@ public class Products {
     public Products() {
     }
 
-    public Products(Integer id, String description, String image, Integer quantity, Double cost, Double sale) {
+    public Products(Integer id, String description, Integer quantity, Double cost, Double sale) {
         this.id = id;
         this.description = description;
-        this.image = image;
         this.quantity = quantity;
         this.cost = cost;
         this.sale = sale;
     }
 
-    public Products(String key, Integer id, String description, String image, Integer quantity, Double cost, Double sale) {
+    public Products(String key, Integer id, String description, Integer quantity, Double cost, Double sale) {
         this.key = key;
         this.id = id;
         this.description = description;
-        this.image = image;
         this.quantity = quantity;
         this.cost = cost;
         this.sale = sale;
@@ -54,14 +51,6 @@ public class Products {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public Integer getQuantity() {

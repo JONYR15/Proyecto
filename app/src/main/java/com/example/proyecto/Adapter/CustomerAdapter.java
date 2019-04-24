@@ -32,7 +32,7 @@ public static class CustomerViewHolder extends RecyclerView.ViewHolder {
     public CustomerViewHolder(View v) {
         super(v);
 
-        idCustomer = (TextView) v.findViewById(R.id.tvId);
+        idCustomer = (TextView) v.findViewById(R.id.tvIdCustomer);
         name = (TextView) v.findViewById(R.id.tvName);
         lastName = (TextView) v.findViewById(R.id.tvLastName);
         numberPhone = (TextView) v.findViewById(R.id.tvNumberPhone);

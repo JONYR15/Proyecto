@@ -72,7 +72,8 @@
                     android:onClick="deleteCustomer"
                     android:text="Eliminar"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/etPass" />
+                    app:layout_constraintTop_toBottomOf="@+id/etPass"
+                    android:background="@drawable/btn_rounded"/>
 
                 <Button
                     android:id="@+id/btCrear"
@@ -85,7 +86,8 @@
                     android:text="Crear"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/etPass" />
+                    app:layout_constraintTop_toBottomOf="@+id/etPass"
+                    android:background="@drawable/btn_rounded"/>
 
                 <TextView
                     android:id="@+id/textView2"
@@ -158,7 +160,8 @@
                     android:onClick="editCustomer"
                     android:text="Editar"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/etPass" />
+                    app:layout_constraintTop_toBottomOf="@+id/etPass"
+                    android:background="@drawable/btn_rounded"/>
 
                 <EditText
                     android:id="@+id/etId"

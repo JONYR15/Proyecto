@@ -2,6 +2,7 @@ package com.example.proyecto.model;
 
 public class Products {
 
+    private String key;
     private Integer id;
     private String description;
     private Integer quantity;
@@ -9,6 +10,31 @@ public class Products {
     private Double sale;
 
     public Products() {
+    }
+
+    public Products(Integer id, String description, Integer quantity, Double cost, Double sale) {
+        this.id = id;
+        this.description = description;
+        this.quantity = quantity;
+        this.cost = cost;
+        this.sale = sale;
+    }
+
+    public Products(String key, Integer id, String description, Integer quantity, Double cost, Double sale) {
+        this.key = key;
+        this.id = id;
+        this.description = description;
+        this.quantity = quantity;
+        this.cost = cost;
+        this.sale = sale;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public Integer getId() {

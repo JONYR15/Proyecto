@@ -1,33 +1,31 @@
 package com.example.proyecto;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
-import com.example.proyecto.Adapter.CustomerAdapter;
-import com.example.proyecto.Managed.CustomerManaged;
-import com.example.proyecto.model.Customers;
+import com.example.proyecto.Adapter.ProductAdapter;
+import com.example.proyecto.Managed.ProductManaged;
+import com.example.proyecto.model.Products;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomersActivity extends AppCompatActivity {
+public class ProductActivity extends AppCompatActivity {
 
-    private static List<Customers> customers = new ArrayList<>();
+    private static List<Products> products = new ArrayList<>();
 
     private DatabaseReference infoReference;
 
@@ -38,35 +36,35 @@ public class CustomersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customers);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_product);
+        Toolbar toolbar = findViewById(R.id.toolbarProduct);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fabProduct);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), CustomerManaged.class);
+                Intent intent = new Intent(view.getContext(), ProductManaged.class);
                 intent.putExtra("accion", 1);
                 view.getContext().startActivity(intent);
             }
         });
 
-        infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.CLIENTES_REFERENCE);
+        infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.PRODUCTOS_REFERENCE);
 
         infoReference.addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        customers.clear();
+                        products.clear();
                         System.out.println(dataSnapshot.getChildrenCount());
                         Log.w("TodoApp", "getUser:onCancelled " + dataSnapshot.toString());
                         Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            Log.d("FragmentActivity","Test Customer" + data.getKey());
-                            Customers customer = data.getValue(Customers.class);
-                            customer.setKey(data.getKey());
-                            customers.add(customer);
+                            Log.d("FragmentActivity","Test Product" + data.getKey());
+                            Products product = data.getValue(Products.class);
+                            product.setKey(data.getKey());
+                            products.add(product);
                         }
 
                         adapter.notifyDataSetChanged();
@@ -87,17 +85,20 @@ public class CustomersActivity extends AppCompatActivity {
         lManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(lManager);
 
-        adapter = new CustomerAdapter(customers);
+        adapter = new ProductAdapter(products);
         recycler.setAdapter(adapter);
 
 
     }
 
-    public static List<Customers> getCustomers() {
-        return customers;
+    public static List<Products> getProducts() {
+        return products;
     }
 
-    public static void setCustomers(List<Customers> customers) {
-        CustomersActivity.customers = customers;
+    public static void setProducts(List<Products> products) {
+        ProductActivity.products = products;
     }
 }
+
+
+

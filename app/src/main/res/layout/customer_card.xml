@@ -3,14 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#f3f4f4">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        app:cardElevation="4dp"
+        app:cardMaxElevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,33 +26,36 @@
 
             <ImageButton
                 android:id="@+id/ibEditar"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/cardview_light_background"
+                android:background="#191919"
+                android:backgroundTint="#dcf8c6"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
 
             <ImageButton
                 android:id="@+id/ibEliminar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/cardview_light_background"
+                android:background="#191919"
+                android:backgroundTint="#dcf8c6"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ibEditar"
                 app:srcCompat="@android:drawable/ic_menu_delete" />
 
             <TextView
-                android:id="@+id/tvId"
+                android:id="@+id/tvIdCustomer"
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="TextView"
+                android:text="ID"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,7 +65,8 @@
                 android:layout_height="19dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="TextView"
+                android:text="Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,7 +76,8 @@
                 android:layout_height="19dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
+                android:text="LastName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
@@ -78,7 +87,8 @@
                 android:layout_height="19dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
+                android:text="NumberPhone"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvLastName" />
 
@@ -88,7 +98,8 @@
                 android:layout_height="19dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
+                android:text="Email"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvNumberPhone" />
         </android.support.constraint.ConstraintLayout>

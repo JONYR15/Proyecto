@@ -1,10 +1,8 @@
 package com.example.proyecto.Managed;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,19 +12,10 @@ import com.example.proyecto.CustomersActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.References;
 import com.example.proyecto.model.Customers;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class CustomerManaged extends AppCompatActivity {
-
-    private static List<Customers> customers = new ArrayList<>();
 
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -69,32 +58,6 @@ public class CustomerManaged extends AppCompatActivity {
 
         infoReference = database.getReference(References.INFO_REFERENCE);
 
-        infoReferenceCustomers = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.CLIENTES_REFERENCE);
-
-        infoReferenceCustomers.addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        customers.clear();
-                        System.out.println(dataSnapshot.getChildrenCount());
-                        Log.w("TodoApp", "getUser:onCancelled " + dataSnapshot.toString());
-                        Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
-                        for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            Log.d("FragmentActivity", "Test Customer" + data.getKey());
-                            Customers customer = data.getValue(Customers.class);
-                            customer.setKey(data.getKey());
-                            customers.add(customer);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.w("TodoApp", "getUser:onCancelled", databaseError.toException());
-
-                    }
-                }
-        );
-
         switch (getIntent().getIntExtra("accion", 1)) {
             case 1:
                 crear.setVisibility(Button.VISIBLE);
@@ -107,7 +70,7 @@ public class CustomerManaged extends AppCompatActivity {
                 editar.setVisibility(Button.VISIBLE);
                 eliminar.setVisibility(Button.GONE);
 
-                for (Customers customer : customers) {
+                for (Customers customer : CustomersActivity.getCustomers()) {
                     if (customer.getKey().equals(getIntent().getStringExtra("key"))) {
                         requestedCustomer = customer;
 
@@ -128,7 +91,7 @@ public class CustomerManaged extends AppCompatActivity {
                 editar.setVisibility(Button.GONE);
                 eliminar.setVisibility(Button.VISIBLE);
 
-                for (Customers customer : customers) {
+                for (Customers customer : CustomersActivity.getCustomers()) {
                     if (customer.getKey().equals(getIntent().getStringExtra("key"))) {
                         requestedCustomer = customer;
 
@@ -203,7 +166,7 @@ public class CustomerManaged extends AppCompatActivity {
 
     public Boolean existe(String accion, Customers requestedCustomer) {
         Boolean existe = Boolean.FALSE;
-        for (Customers customer : customers) {
+        for (Customers customer : CustomersActivity.getCustomers()) {
             switch (accion) {
                 case "create":
                     if (customer.getId() == Integer.parseInt(id.getText().toString())) {

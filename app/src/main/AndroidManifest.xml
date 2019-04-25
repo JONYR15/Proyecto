@@ -12,8 +12,14 @@
         <activity android:name=".Managed.CustomerManaged"></activity>
         <activity
             android:name=".CustomersActivity"
-            android:label="@string/title_activity_customers"
+            android:label="Clientes"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Managed.ProductManaged"></activity>
+        <activity
+            android:name=".ProductActivity"
+            android:label="Productos"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

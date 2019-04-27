@@ -17,8 +17,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardCornerRadius="10dp"
-        app:contentPadding="10dp"
+        app:cardCornerRadius="2dp"
+        app:contentPadding="2dp"
         app:cardElevation="4dp"
         app:cardMaxElevation="6dp"
         app:cardBackgroundColor="#075e54">

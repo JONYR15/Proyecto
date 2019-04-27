@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">Tienda Judy</string>
     <string name="title_activity_customers">CustomersActivity</string>
+    <string name="Nombre">Nombre</string>
+    <string name="Apellido">Apellido</string>
+    <string name="Telefono">Telefono</string>
+    <string name="Email">Correo Electronico</string>
+    <string name="Usuario">Usuario</string>
+    <string name="Contraseña">Contraseña</string>
+    <string name="Eliminar">Eliminar</string>
+
+
+
     <string name="title_activity_invoice">InvoiceActivity</string>
 </resources>

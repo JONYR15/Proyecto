@@ -76,11 +76,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int i) {
         holder.key = items.get(i).getKey();
-        holder.idProduct.setText("ID: " + Integer.toString(items.get(i).getId()));
+        holder.idProduct.setText("ID: " + items.get(i).getId());
         holder.description.setText("Descripción: " + items.get(i).getDescription());
         holder.quantity.setText("Cantidad: " + items.get(i).getQuantity());
-        holder.cost.setText("Costo: " + items.get(i).getCost());
-        holder.sale.setText("Ventas: " + items.get(i).getSale());
+        holder.cost.setText("Precio Costo: " + items.get(i).getCost());
+        holder.sale.setText("Precio Venta: " + items.get(i).getSale());
     }
 
     @Override

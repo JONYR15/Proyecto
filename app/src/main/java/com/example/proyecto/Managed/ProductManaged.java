@@ -9,11 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.proyecto.CustomersActivity;
 import com.example.proyecto.ProductActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.References;
-import com.example.proyecto.model.Customers;
 import com.example.proyecto.model.Products;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

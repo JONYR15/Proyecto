@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Tienda Judy</string>
     <string name="title_activity_customers">CustomersActivity</string>
+    <string name="title_activity_invoice">InvoiceActivity</string>
 </resources>

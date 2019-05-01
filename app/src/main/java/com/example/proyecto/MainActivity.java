@@ -24,4 +24,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(view.getContext(), ProductActivity.class);
         view.getContext().startActivity(intent);
     }
+
+    public void invoices(View view){
+        Intent intent = new Intent(view.getContext(), InvoiceActivity.class);
+        view.getContext().startActivity(intent);
+    }
 }

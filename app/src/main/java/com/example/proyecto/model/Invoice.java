@@ -8,6 +8,7 @@ public class Invoice {
     private String key;
     private Integer idInvoice;
     private Date date;
+    private String keyCustomer;
     private String nameCustomer;
     private Double subTotal;
     private Double iva;
@@ -19,25 +20,29 @@ public class Invoice {
     public Invoice() {
     }
 
-    public Invoice(String key, Integer idInvoice, Date date, String nameCustomer, Double subTotal, Double iva, Double total, String employee) {
+    public Invoice(String key, Integer idInvoice, Date date, String keyCustomer, String nameCustomer, Double subTotal, Double iva, Double total, String employee, List<Details> detailsList) {
         this.key = key;
         this.idInvoice = idInvoice;
         this.date = date;
+        this.keyCustomer = keyCustomer;
         this.nameCustomer = nameCustomer;
         this.subTotal = subTotal;
         this.iva = iva;
         this.total = total;
         this.employee = employee;
+        this.detailsList = detailsList;
     }
 
-    public Invoice(Integer idInvoice, Date date, String nameCustomer, Double subTotal, Double iva, Double total, String employee) {
+    public Invoice(Integer idInvoice, Date date, String keyCustomer, String nameCustomer, Double subTotal, Double iva, Double total, String employee, List<Details> detailsList) {
         this.idInvoice = idInvoice;
         this.date = date;
+        this.keyCustomer = keyCustomer;
         this.nameCustomer = nameCustomer;
         this.subTotal = subTotal;
         this.iva = iva;
         this.total = total;
         this.employee = employee;
+        this.detailsList = detailsList;
     }
 
     public String getKey() {
@@ -110,5 +115,13 @@ public class Invoice {
 
     public void setDetailsList(List<Details> detailsList) {
         this.detailsList = detailsList;
+    }
+
+    public String getKeyCustomer() {
+        return keyCustomer;
+    }
+
+    public void setKeyCustomer(String keyCustomer) {
+        this.keyCustomer = keyCustomer;
     }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         private TextView idProduct;
+        private ImageView imageProduct;
         private TextView description;
         private TextView quantity;
         private TextView cost;
@@ -33,6 +35,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         public ProductViewHolder(View v) {
             super(v);
             idProduct = (TextView)v.findViewById(R.id.tvIdProduct);
+            imageProduct = (ImageView)v.findViewById(R.id.ivProduct);
             description = (TextView)v.findViewById(R.id.tvDescription);
             quantity = (TextView)v.findViewById(R.id.tvQuantity);
             cost = (TextView)v.findViewById(R.id.tvCost);
@@ -77,6 +80,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(ProductViewHolder holder, int i) {
         holder.key = items.get(i).getKey();
         holder.idProduct.setText("ID: " + items.get(i).getId());
+        //holder.imageProduct.setImageResource(items.get(i).getImageProduct());
         holder.description.setText("Descripción: " + items.get(i).getDescription());
         holder.quantity.setText("Cantidad: " + items.get(i).getQuantity());
         holder.cost.setText("Precio Costo: " + items.get(i).getCost());

@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.proyecto.InvoiceManaged;
 import com.example.proyecto.R;
 import com.example.proyecto.model.Invoice;
 

@@ -74,13 +74,6 @@ public class ProductManaged extends AppCompatActivity {
     //uri to store file
     private Uri imageProductUri;
 
-
-    private String urlFile;
-
-    private Products product;
-
-    private List<Products> products = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +112,7 @@ public class ProductManaged extends AppCompatActivity {
                 editar.setVisibility(Button.VISIBLE);
                 eliminar.setVisibility(Button.GONE);
 
-                for (Products product : products) {
+                for (Products product : ProductActivity.getProducts()) {
                     if (product.getKey().equals(getIntent().getStringExtra("key"))) {
                         requestedProduct = product;
 
@@ -138,7 +131,7 @@ public class ProductManaged extends AppCompatActivity {
                 editar.setVisibility(Button.GONE);
                 eliminar.setVisibility(Button.VISIBLE);
 
-                for (Products product : products) {
+                for (Products product : ProductActivity.getProducts()) {
                     if (product.getKey().equals(getIntent().getStringExtra("key"))) {
                         requestedProduct = product;
 
@@ -161,52 +154,6 @@ public class ProductManaged extends AppCompatActivity {
 
         infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.PRODUCTOS_REFERENCE);
         storageReference = FirebaseStorage.getInstance().getReference().child(References.IMAGES_PRODUCTS);
-
-        infoReference.addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        products.clear();
-                        System.out.println(dataSnapshot.getChildrenCount());
-                        Log.w("TodoApp", "getUser:onCancelled " + dataSnapshot.toString());
-                        Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
-                        for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            Log.d("FragmentActivity", "Test Product" + data.getKey());
-                            product = new Products();
-                            product = data.getValue(Products.class);
-                            product.setKey(data.getKey());
-                            if (product != null && product.getImageProduct() != null) {
-                                StorageReference image = storageReference.child(product.getImageProduct());
-                                Task<Uri> uriTask = image.getDownloadUrl()
-                                        .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                            @Override
-                                            public void onSuccess(Uri uri) {
-                                                product.setImageUri(uri);
-                                                products.add(product);
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                products.add(product);
-                                            }
-                                        });
-                            }else{
-                                products.add(product);
-                            }
-
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.w("TodoApp", "getUser:onCancelled", databaseError.toException());
-
-                    }
-                }
-        );
-
 
     }
 
@@ -252,7 +199,7 @@ public class ProductManaged extends AppCompatActivity {
 
     public Boolean existe(String accion, Products requestedProduct) {
         Boolean existe = Boolean.FALSE;
-        for (Products product : products) {
+        for (Products product : ProductActivity.getProducts()) {
             switch (accion) {
                 case "create":
                     if (product.getId() == Integer.parseInt(idProduct.getText().toString())) {

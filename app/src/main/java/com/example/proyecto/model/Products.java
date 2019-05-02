@@ -7,7 +7,7 @@ public class Products {
     private String key;
     private Integer id;
     private String imageProduct;
-    private Uri imageUri;
+    private String imageUrl;
     private String description;
     private Integer quantity;
     private Double cost;
@@ -33,11 +33,11 @@ public class Products {
         this.sale = sale;
     }
 
-    public Products(String key, Integer id, String imageProduct, Uri imageUri, String description, Integer quantity, Double cost, Double sale) {
+    public Products(String key, Integer id, String imageProduct, String imageUrl, String description, Integer quantity, Double cost, Double sale) {
         this.key = key;
         this.id = id;
         this.imageProduct = imageProduct;
-        this.imageUri = imageUri;
+        this.imageUrl = imageUrl;
         this.description = description;
         this.quantity = quantity;
         this.cost = cost;
@@ -100,11 +100,11 @@ public class Products {
         this.sale = sale;
     }
 
-    public Uri getImageUri() {
-        return imageUri;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageUri(Uri imageUri) {
-        this.imageUri = imageUri;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

@@ -2,4 +2,18 @@
 <resources>
 
 
+    <string name="app_name">Tienda Judy</string>
+    <string name="apellido">Apellido</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="email">Email</string>
+    <string name="factura">Factura</string>
+    <string name="idCustomer">ID</string>
+    <string name="nombre">Nombre</string>
+    <string name="nombreCliente">Clientes</string>
+    <string name="producto">Productos</string>
+    <string name="telefono">Telefono</string>
+    <string name="title_activity_customers">Clientes</string>
+    <string name="title_activity_invoice">Facturas</string>
+    <string name="usuario">Usuario</string>
 </resources>

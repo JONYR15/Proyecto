@@ -1,20 +1,39 @@
 package com.example.proyecto.Managed;
 
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.proyecto.ProductActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.References;
 import com.example.proyecto.model.Products;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 
 public class ProductManaged extends AppCompatActivity {
 
@@ -31,14 +50,36 @@ public class ProductManaged extends AppCompatActivity {
     private EditText cost;
     private EditText sale;
 
+    private EditText editTextName;
+
     private Products requestedProduct;
     private DatabaseReference infoReference;
-    private DatabaseReference infoReferenceProducts;
+    private StorageReference storageReference;
+
+    private static final int PICK_IMAGE_REQUEST = 1;
+
+    private ImageButton ChooseImage;
+    private ImageView imageProduct;
+    private ProgressBar mprogressBar;
+
+    //uri to store file
+    private Uri imageProductUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_managed);
+
+        ChooseImage = findViewById(R.id.ibChooseImage);
+        imageProduct = findViewById(R.id.ivProduct);
+        mprogressBar = findViewById(R.id.progressBar);
+
+        ChooseImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenFileChooser();
+            }
+        });
 
         crear = findViewById(R.id.btCrear);
         editar = findViewById(R.id.btEditar);
@@ -51,6 +92,7 @@ public class ProductManaged extends AppCompatActivity {
         sale = findViewById(R.id.etSale);
 
         infoReference = database.getReference(References.INFO_REFERENCE);
+        storageReference = FirebaseStorage.getInstance().getReference(References.IMAGES_PRODUCTS);
 
         switch (getIntent().getIntExtra("accion", 1)) {
             case 1:
@@ -110,10 +152,10 @@ public class ProductManaged extends AppCompatActivity {
         if (!existe("create", null)) {
             int idProducto = Integer.parseInt(((EditText) findViewById(R.id.etIdProducto)).getText().toString());
             String description = this.description.getText().toString();
-            int quantity  = Integer.parseInt(((EditText)findViewById(R.id.etQuantity)).getText().toString());
-            Double cost = Double.parseDouble(((EditText)findViewById(R.id.etCost)).getText().toString());
-            Double sale = Double.parseDouble(((EditText)findViewById(R.id.etSale)).getText().toString());
-            Products product = new Products(idProducto, description, quantity, cost, sale);
+            int quantity = Integer.parseInt(((EditText) findViewById(R.id.etQuantity)).getText().toString());
+            Double cost = Double.parseDouble(((EditText) findViewById(R.id.etCost)).getText().toString());
+            Double sale = Double.parseDouble(((EditText) findViewById(R.id.etSale)).getText().toString());
+            Products product = new Products(idProducto, uploadImage(),description, quantity, cost, sale);
             infoReference.child(References.PRODUCTOS_REFERENCE).push().setValue(product);
             limpiar();
             finish();
@@ -127,9 +169,9 @@ public class ProductManaged extends AppCompatActivity {
         if (!existe("edit", requestedProduct)) {
             int idProducto = Integer.parseInt(((EditText) findViewById(R.id.etIdProducto)).getText().toString());
             String description = this.description.getText().toString();
-            int quantity  = Integer.parseInt(((EditText)findViewById(R.id.etQuantity)).getText().toString());
-            Double cost = Double.parseDouble(((EditText)findViewById(R.id.etCost)).getText().toString());
-            Double sale = Double.parseDouble(((EditText)findViewById(R.id.etSale)).getText().toString());
+            int quantity = Integer.parseInt(((EditText) findViewById(R.id.etQuantity)).getText().toString());
+            Double cost = Double.parseDouble(((EditText) findViewById(R.id.etCost)).getText().toString());
+            Double sale = Double.parseDouble(((EditText) findViewById(R.id.etSale)).getText().toString());
             Products product = new Products(idProducto, description, quantity, cost, sale);
             infoReference.child(References.PRODUCTOS_REFERENCE).child(requestedProduct.getKey()).setValue(product);
             limpiar();
@@ -147,7 +189,7 @@ public class ProductManaged extends AppCompatActivity {
 
     public Boolean existe(String accion, Products requestedProduct) {
         Boolean existe = Boolean.FALSE;
-        for (Products product: ProductActivity.getProducts()) {
+        for (Products product : ProductActivity.getProducts()) {
             switch (accion) {
                 case "create":
                     if (product.getId() == Integer.parseInt(idProduct.getText().toString())) {
@@ -177,6 +219,78 @@ public class ProductManaged extends AppCompatActivity {
         quantity.setText("");
         cost.setText("");
         sale.setText("");
+    }
+
+    private void OpenFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && requestCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            imageProductUri = data.getData();
+            Picasso.with(this).load(imageProductUri).into(imageProduct);
+        }
+
+        try {
+            imageProductUri = data.getData();
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageProductUri);
+            imageProduct.setImageBitmap(bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(uri));
+    }
+
+    public String uploadImage() {
+        String nameFile = "";
+        if (imageProductUri != null) {
+            nameFile = System.currentTimeMillis() + "." + getFileExtension(imageProductUri);
+            StorageReference fileRefecence = storageReference.child(nameFile);
+            fileRefecence.putFile(imageProductUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mprogressBar.setProgress(0);
+                                }
+                            }, 5000);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ProductManaged.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                            mprogressBar.setProgress((int) progress);
+                        }
+                    });
+
+        } else {
+            Toast.makeText(this, "Archivo no seleccionado", Toast.LENGTH_SHORT).show();
+        }
+
+        return nameFile;
     }
 
 }

@@ -1,42 +1,67 @@
 package com.example.proyecto.Adapter;
 
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.example.proyecto.Managed.ProductManaged;
+import com.example.proyecto.ProductActivity;
 import com.example.proyecto.R;
+import com.example.proyecto.References;
 import com.example.proyecto.model.Products;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private List<Products> items;
 
+    private Context context;
+
+    private StorageReference storageReference;
+
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         private TextView idProduct;
+        private ImageView imageProduct;
         private TextView description;
         private TextView quantity;
         private TextView cost;
         private TextView sale;
 
+
         public String key;
+        public String nameImage;
 
 
         public ProductViewHolder(View v) {
             super(v);
-            idProduct = (TextView)v.findViewById(R.id.tvIdProduct);
-            description = (TextView)v.findViewById(R.id.tvDescription);
-            quantity = (TextView)v.findViewById(R.id.tvQuantity);
-            cost = (TextView)v.findViewById(R.id.tvCost);
-            sale = (TextView)v.findViewById(R.id.tvSale);
+            idProduct = (TextView) v.findViewById(R.id.tvIdProduct);
+            imageProduct = (ImageView) v.findViewById(R.id.ivProduct);
+            description = (TextView) v.findViewById(R.id.tvDescription);
+            quantity = (TextView) v.findViewById(R.id.tvQuantity);
+            cost = (TextView) v.findViewById(R.id.tvCost);
+            sale = (TextView) v.findViewById(R.id.tvSale);
+
+            System.out.println("IMAAAAGGEEEENNN" + nameImage + description.getText().toString());
+
 
             ((ImageButton) v.findViewById(R.id.ibEdit)).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,12 +95,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public ProductAdapter.ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.product_card, parent, false);
+        context = parent.getContext();
+        storageReference = FirebaseStorage.getInstance().getReference(References.IMAGES_PRODUCTS);
         return new ProductViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int i) {
         holder.key = items.get(i).getKey();
+        holder.nameImage = items.get(i).getImageProduct();
+
+        if (items.get(i).getImageProduct() != null) {
+            System.out.println(storageReference.child("/" + References.IMAGES_PRODUCTS).child("/" + items.get(i).getImageProduct()).getDownloadUrl().toString());
+            Picasso.with(context).load("https://firebasestorage.googleapis.com/v0/b/lec09-80b6c.appspot.com/o/products%2F1556753503933.jpg?alt=media&token=b4b912a3-ed99-45a1-b8d6-8503f5e83cc8").into(holder.imageProduct);
+        }
+
         holder.idProduct.setText("ID: " + items.get(i).getId());
         holder.description.setText("Descripción: " + items.get(i).getDescription());
         holder.quantity.setText("Cantidad: " + items.get(i).getQuantity());
@@ -87,5 +121,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public int getItemCount() {
         return items.size();
     }
+
 
 }

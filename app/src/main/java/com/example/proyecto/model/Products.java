@@ -1,15 +1,28 @@
 package com.example.proyecto.model;
 
+import android.net.Uri;
+
 public class Products {
 
     private String key;
     private Integer id;
+    private String imageProduct;
+    private Uri imageUri;
     private String description;
     private Integer quantity;
     private Double cost;
     private Double sale;
 
     public Products() {
+    }
+
+    public Products(Integer id, String imageProduct, String description, Integer quantity, Double cost, Double sale) {
+        this.id = id;
+        this.imageProduct = imageProduct;
+        this.description = description;
+        this.quantity = quantity;
+        this.cost = cost;
+        this.sale = sale;
     }
 
     public Products(Integer id, String description, Integer quantity, Double cost, Double sale) {
@@ -20,9 +33,11 @@ public class Products {
         this.sale = sale;
     }
 
-    public Products(String key, Integer id, String description, Integer quantity, Double cost, Double sale) {
+    public Products(String key, Integer id, String imageProduct, Uri imageUri, String description, Integer quantity, Double cost, Double sale) {
         this.key = key;
         this.id = id;
+        this.imageProduct = imageProduct;
+        this.imageUri = imageUri;
         this.description = description;
         this.quantity = quantity;
         this.cost = cost;
@@ -43,6 +58,14 @@ public class Products {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getImageProduct() {
+        return imageProduct;
+    }
+
+    public void setImageProduct(String imageProduct) {
+        this.imageProduct = imageProduct;
     }
 
     public String getDescription() {
@@ -77,4 +100,11 @@ public class Products {
         this.sale = sale;
     }
 
+    public Uri getImageUri() {
+        return imageUri;
+    }
+
+    public void setImageUri(Uri imageUri) {
+        this.imageUri = imageUri;
+    }
 }

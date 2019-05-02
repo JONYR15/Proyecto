@@ -6,4 +6,7 @@ public class References {
     public static final String PRODUCTOS_REFERENCE="products";
     public static final String INVOICE_REFERENCE="invoice";
     public static final String CONSECUTIVE_INVOICE_REFERENCE="consecutive_invoice";
+    public static final String IMAGES_PRODUCTS="products";
+    public static final String STORAGE_PATH_UPLOADS = "uploads/";
+    public static final String DATABASE_PATH_UPLOADS = "uploads";
 }

@@ -30,20 +30,19 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class ProductActivity extends AppCompatActivity {
 
-    private List<Products> products = new ArrayList<>();
+    private static List<Products> products = new ArrayList<>();
 
     private DatabaseReference infoReference;
-    private StorageReference storageReference;
-    private FirebaseStorage storage;
 
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
-
-    private Uri URL;
 
     private Products product;
 
@@ -65,7 +64,6 @@ public class ProductActivity extends AppCompatActivity {
         });
 
         infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.PRODUCTOS_REFERENCE);
-        storage = FirebaseStorage.getInstance();
 
         infoReference.addValueEventListener(
                 new ValueEventListener() {
@@ -79,23 +77,12 @@ public class ProductActivity extends AppCompatActivity {
                             Log.d("FragmentActivity", "Test Product" + data.getKey());
                             product = data.getValue(Products.class);
                             product.setKey(data.getKey());
+                            product.setImageUrl(References.getURl(product.getImageProduct()));
 
-                            StorageReference image = storage.getReference().child(References.IMAGES_PRODUCTS + product.getImageProduct());
-                            image.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    product.setImageUri(uri);
-                                    products.add(product);
-                                    adapter.notifyDataSetChanged();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    products.add(product);
-                                    adapter.notifyDataSetChanged();
-                                }
-                            });
+                            products.add(product);
                         }
+
+                        adapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -119,7 +106,7 @@ public class ProductActivity extends AppCompatActivity {
 
     }
 
-    public List<Products> getProducts() {
+    public static List<Products> getProducts() {
         return products;
     }
 

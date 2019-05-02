@@ -102,8 +102,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.key = items.get(i).getKey();
         holder.nameImage = items.get(i).getImageProduct();
 
-        if (items.get(i).getImageUri() != null) {
-            Picasso.with(context).load(items.get(i).getImageUri()).into(holder.imageProduct);
+        if (items.get(i).getImageUrl() != null) {
+            Picasso.with(context).load(items.get(i).getImageUrl()).into(holder.imageProduct);
         }
 
         holder.idProduct.setText("ID: " + items.get(i).getId());

@@ -188,7 +188,7 @@ public class ProductManaged extends AppCompatActivity {
             String fileName = uploadImage();
             Products product;
             if (fileName.equals("")) {
-                product = new Products(idProducto, requestedProduct.getImageUrl(), description, quantity, cost, sale);
+                product = new Products(idProducto, requestedProduct.getImageProduct(), description, quantity, cost, sale);
             } else {
                 product = new Products(idProducto, fileName, description, quantity, cost, sale);
             }

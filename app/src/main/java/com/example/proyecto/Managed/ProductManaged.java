@@ -117,6 +117,7 @@ public class ProductManaged extends AppCompatActivity {
                         requestedProduct = product;
 
                         idProduct.setText(Integer.toString(product.getId()));
+                        Picasso.with(getApplicationContext()).load(References.getURl(product.getImageProduct())).into(imageProduct);
                         description.setText(product.getDescription());
                         quantity.setText(Integer.toString(product.getQuantity()));
                         cost.setText(Double.toString(product.getCost()));
@@ -136,6 +137,7 @@ public class ProductManaged extends AppCompatActivity {
                         requestedProduct = product;
 
                         idProduct.setText(Integer.toString(product.getId()));
+                        Picasso.with(getApplicationContext()).load(References.getURl(product.getImageProduct())).into(imageProduct);
                         description.setText(product.getDescription());
                         quantity.setText(Integer.toString(product.getQuantity()));
                         cost.setText(Double.toString(product.getCost()));
@@ -145,6 +147,7 @@ public class ProductManaged extends AppCompatActivity {
                 }
 
                 idProduct.setEnabled(false);
+                ChooseImage.setEnabled(false);
                 description.setEnabled(false);
                 quantity.setEnabled(false);
                 cost.setEnabled(false);
@@ -182,8 +185,14 @@ public class ProductManaged extends AppCompatActivity {
             int quantity = Integer.parseInt(((EditText) findViewById(R.id.etQuantity)).getText().toString());
             Double cost = Double.parseDouble(((EditText) findViewById(R.id.etCost)).getText().toString());
             Double sale = Double.parseDouble(((EditText) findViewById(R.id.etSale)).getText().toString());
-            Products product = new Products(idProducto, description, quantity, cost, sale);
-            infoReference.child(References.PRODUCTOS_REFERENCE).child(requestedProduct.getKey()).setValue(product);
+            String fileName = uploadImage();
+            Products product;
+            if (fileName.equals("")) {
+                product = new Products(idProducto, requestedProduct.getImageUrl(), description, quantity, cost, sale);
+            } else {
+                product = new Products(idProducto, fileName, description, quantity, cost, sale);
+            }
+            infoReference.child(requestedProduct.getKey()).setValue(product);
             limpiar();
             finish();
         } else {
@@ -192,7 +201,7 @@ public class ProductManaged extends AppCompatActivity {
     }
 
     public void deleteProduct(View view) {
-        infoReference.child(References.PRODUCTOS_REFERENCE).child(requestedProduct.getKey()).removeValue();
+        infoReference.child(requestedProduct.getKey()).removeValue();
         limpiar();
         finish();
     }

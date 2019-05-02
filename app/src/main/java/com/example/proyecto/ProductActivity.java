@@ -77,7 +77,7 @@ public class ProductActivity extends AppCompatActivity {
                             Log.d("FragmentActivity", "Test Product" + data.getKey());
                             product = data.getValue(Products.class);
                             product.setKey(data.getKey());
-                            product.setImageUrl(getURl(product.getImageProduct()));
+                            product.setImageUrl(References.getURl(product.getImageProduct()));
 
                             products.add(product);
                         }
@@ -112,12 +112,6 @@ public class ProductActivity extends AppCompatActivity {
 
     public void setProducts(List<Products> products) {
         this.products = products;
-    }
-
-
-    public String getURl(String fileName) {
-        return "https://firebasestorage.googleapis.com/v0/b/lec09-80b6c.appspot.com/o/" + References.IMAGES_PRODUCTS + "%2F" + fileName + "?alt=media&token=b4b912a3-ed99-45a1-b8d6-8503f5e83cc8";
-
     }
 
 }

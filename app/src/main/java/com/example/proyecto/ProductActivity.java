@@ -1,6 +1,7 @@
 package com.example.proyecto;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,8 @@ import android.view.View;
 import com.example.proyecto.Adapter.ProductAdapter;
 import com.example.proyecto.Managed.ProductManaged;
 import com.example.proyecto.model.Products;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +39,8 @@ public class ProductActivity extends AppCompatActivity {
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
+
+    private UploadTask uploadTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +71,11 @@ public class ProductActivity extends AppCompatActivity {
                         Log.w("TodoApp", "getUser:onCancelled " + dataSnapshot.toString());
                         Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            Log.d("FragmentActivity","Test Product" + data.getKey());
+                            Log.d("FragmentActivity", "Test Product" + data.getKey());
                             Products product = data.getValue(Products.class);
                             product.setKey(data.getKey());
+
+                           // product.setImageUri(image(product.getImageProduct()));
                             products.add(product);
                         }
 
@@ -102,6 +110,7 @@ public class ProductActivity extends AppCompatActivity {
     public static void setProducts(List<Products> products) {
         ProductActivity.products = products;
     }
+
 }
 
 

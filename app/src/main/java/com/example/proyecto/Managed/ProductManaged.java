@@ -251,7 +251,6 @@ public class ProductManaged extends AppCompatActivity {
         ContentResolver cr = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(uri));
-
     }
 
     public String uploadImage() {

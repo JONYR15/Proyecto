@@ -1,7 +1,9 @@
-package com.example.proyecto;
+package com.example.proyecto.Managed;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.proyecto.R;
 
 public class InvoiceManaged extends AppCompatActivity {
 

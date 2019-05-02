@@ -12,7 +12,7 @@
     <string name="idCustomer">Codigo</string>
     <string name="nombreCliente">Clientes</string>
     <string name="producto">Productos</string>
-    <string name="factura">Factura</string>
+    <string name="factura">Facturas</string>
     /*Producto*/
 
     <string name="title_activity_invoice">InvoiceActivity</string>

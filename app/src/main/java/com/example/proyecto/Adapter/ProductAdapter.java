@@ -105,9 +105,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.key = items.get(i).getKey();
         holder.nameImage = items.get(i).getImageProduct();
 
-        if (items.get(i).getImageProduct() != null) {
-            System.out.println(storageReference.child("/" + References.IMAGES_PRODUCTS).child("/" + items.get(i).getImageProduct()).getDownloadUrl().toString());
-            Picasso.with(context).load("https://firebasestorage.googleapis.com/v0/b/lec09-80b6c.appspot.com/o/products%2F1556753503933.jpg?alt=media&token=b4b912a3-ed99-45a1-b8d6-8503f5e83cc8").into(holder.imageProduct);
+        if (items.get(i).getImageUri() != null) {
+            Picasso.with(context).load(items.get(i).getImageUri()).into(holder.imageProduct);
         }
 
         holder.idProduct.setText("ID: " + items.get(i).getId());

@@ -15,6 +15,7 @@ import android.view.View;
 import com.example.proyecto.Adapter.ProductAdapter;
 import com.example.proyecto.Managed.ProductManaged;
 import com.example.proyecto.model.Products;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -40,7 +41,7 @@ public class ProductActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
 
-    private UploadTask uploadTask;
+    private Uri URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class ProductActivity extends AppCompatActivity {
         });
 
         infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.PRODUCTOS_REFERENCE);
-        storageReference = FirebaseStorage.getInstance().getReference(References.IMAGES_PRODUCTS);
+        storageReference = FirebaseStorage.getInstance().getReference().child(References.IMAGES_PRODUCTS);
 
         infoReference.addValueEventListener(
                 new ValueEventListener() {
@@ -74,8 +75,25 @@ public class ProductActivity extends AppCompatActivity {
                             Log.d("FragmentActivity", "Test Product" + data.getKey());
                             Products product = data.getValue(Products.class);
                             product.setKey(data.getKey());
-
-                           // product.setImageUri(image(product.getImageProduct()));
+                            if (product.getImageProduct() != null) {
+                                storageReference.child(product.getImageProduct()).getDownloadUrl()
+                                        .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                URL = uri;
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                URL = null;
+                                            }
+                                        });
+                            } else {
+                                URL = null;
+                            }
+                            product.setImageUri(URL);
+                            System.out.println("URLLLLL" + product.getImageUri());
                             products.add(product);
                         }
 

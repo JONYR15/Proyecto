@@ -10,7 +10,7 @@ public class References {
 
 
     public static String getURl(String fileName) {
-        return "https://firebasestorage.googleapis.com/v0/b/lec09-80b6c.appspot.com/o/" + References.IMAGES_PRODUCTS + "%2F" + fileName + "?alt=media&token=b4b912a3-ed99-45a1-b8d6-8503f5e83cc8";
-
+        return "https://firebasestorage.googleapis.com/v0/b/lec09-80b6c.appspot.com/o/" + IMAGES_PRODUCTS + "%2F" + fileName + "?alt=media&token=b4b912a3-ed99-45a1-b8d6-8503f5e83cc8";
     }
+
 }

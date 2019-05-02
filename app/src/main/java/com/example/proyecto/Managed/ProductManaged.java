@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -27,8 +28,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -36,6 +40,9 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 public class ProductManaged extends AppCompatActivity {
 
@@ -66,6 +73,13 @@ public class ProductManaged extends AppCompatActivity {
 
     //uri to store file
     private Uri imageProductUri;
+
+
+    private String urlFile;
+
+    private Products product;
+
+    private List<Products> products = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +122,7 @@ public class ProductManaged extends AppCompatActivity {
                 editar.setVisibility(Button.VISIBLE);
                 eliminar.setVisibility(Button.GONE);
 
-                for (Products product : ProductActivity.getProducts()) {
+                for (Products product : products) {
                     if (product.getKey().equals(getIntent().getStringExtra("key"))) {
                         requestedProduct = product;
 
@@ -127,7 +141,7 @@ public class ProductManaged extends AppCompatActivity {
                 editar.setVisibility(Button.GONE);
                 eliminar.setVisibility(Button.VISIBLE);
 
-                for (Products product : ProductActivity.getProducts()) {
+                for (Products product : products) {
                     if (product.getKey().equals(getIntent().getStringExtra("key"))) {
                         requestedProduct = product;
 
@@ -147,6 +161,50 @@ public class ProductManaged extends AppCompatActivity {
                 sale.setEnabled(false);
                 break;
         }
+
+        infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.PRODUCTOS_REFERENCE);
+        storageReference = FirebaseStorage.getInstance().getReference().child(References.IMAGES_PRODUCTS);
+
+        infoReference.addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        products.clear();
+                        System.out.println(dataSnapshot.getChildrenCount());
+                        Log.w("TodoApp", "getUser:onCancelled " + dataSnapshot.toString());
+                        Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
+                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+                            Log.d("FragmentActivity", "Test Product" + data.getKey());
+                            product = new Products();
+                            product = data.getValue(Products.class);
+                            product.setKey(data.getKey());
+                            if (product != null && product.getImageProduct() != null) {
+                                final CountDownLatch countDownLatch = new CountDownLatch(1);
+                                StorageReference image = storageReference.child(product.getImageProduct());
+                                Task<Uri> uriTask = image.getDownloadUrl()
+                                        .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                countDownLatch.countDown();
+                                                product.setImageUri(uri);
+                                                products.add(product);
+                                            }
+                                        });
+                                countDownLatch.countDown();
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.w("TodoApp", "getUser:onCancelled", databaseError.toException());
+
+                    }
+                }
+        );
+
+
     }
 
 
@@ -191,7 +249,7 @@ public class ProductManaged extends AppCompatActivity {
 
     public Boolean existe(String accion, Products requestedProduct) {
         Boolean existe = Boolean.FALSE;
-        for (Products product : ProductActivity.getProducts()) {
+        for (Products product : products) {
             switch (accion) {
                 case "create":
                     if (product.getId() == Integer.parseInt(idProduct.getText().toString())) {
@@ -255,12 +313,12 @@ public class ProductManaged extends AppCompatActivity {
         return mime.getExtensionFromMimeType(cr.getType(uri));
     }
 
-    String urlFile;
 
     public String uploadImage() {
-        urlFile = "";
+        String fileName = "";
         if (imageProductUri != null) {
-            StorageReference fileRefecence = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageProductUri));
+            fileName = System.currentTimeMillis() + "." + getFileExtension(imageProductUri);
+            StorageReference fileRefecence = storageReference.child(fileName);
             fileRefecence.putFile(imageProductUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -294,7 +352,7 @@ public class ProductManaged extends AppCompatActivity {
             Toast.makeText(this, "Archivo no seleccionado", Toast.LENGTH_SHORT).show();
         }
 
-        return urlFile;
+        return imageProductUri.toString();
     }
 
 }

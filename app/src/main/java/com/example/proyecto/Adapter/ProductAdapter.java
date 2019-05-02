@@ -60,9 +60,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             cost = (TextView) v.findViewById(R.id.tvCost);
             sale = (TextView) v.findViewById(R.id.tvSale);
 
-            System.out.println("IMAAAAGGEEEENNN" + nameImage + description.getText().toString());
-
-
             ((ImageButton) v.findViewById(R.id.ibEdit)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

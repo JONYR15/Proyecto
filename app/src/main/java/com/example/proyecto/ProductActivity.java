@@ -29,10 +29,11 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 public class ProductActivity extends AppCompatActivity {
 
-    private static List<Products> products = new ArrayList<>();
+    private List<Products> products = new ArrayList<>();
 
     private DatabaseReference infoReference;
     private StorageReference storageReference;
@@ -42,6 +43,8 @@ public class ProductActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager lManager;
 
     private Uri URL;
+
+    private Products product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,31 +76,29 @@ public class ProductActivity extends AppCompatActivity {
                         Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             Log.d("FragmentActivity", "Test Product" + data.getKey());
-                            Products product = data.getValue(Products.class);
+                            product = new Products();
+                            product = data.getValue(Products.class);
                             product.setKey(data.getKey());
-                            if (product.getImageProduct() != null) {
-                                storageReference.child(product.getImageProduct()).getDownloadUrl()
+                            if (product != null && product.getImageProduct() != null) {
+                                final CountDownLatch countDownLatch = new CountDownLatch(1);
+                                    StorageReference image = storageReference.child(product.getImageProduct());
+                                Task<Uri> uriTask = image.getDownloadUrl()
                                         .addOnSuccessListener(new OnSuccessListener<Uri>() {
                                             @Override
                                             public void onSuccess(Uri uri) {
-                                                URL = uri;
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                URL = null;
+                                                countDownLatch.countDown();
+                                                product.setImageUri(uri);
+                                                products.add(product);
+                                                adapter.notifyDataSetChanged();
                                             }
                                         });
+                                    countDownLatch.countDown();
                             } else {
                                 URL = null;
                             }
-                            product.setImageUri(URL);
                             System.out.println("URLLLLL" + product.getImageUri());
-                            products.add(product);
-                        }
 
-                        adapter.notifyDataSetChanged();
+                        }
                     }
 
                     @Override
@@ -121,12 +122,12 @@ public class ProductActivity extends AppCompatActivity {
 
     }
 
-    public static List<Products> getProducts() {
+    public List<Products> getProducts() {
         return products;
     }
 
-    public static void setProducts(List<Products> products) {
-        ProductActivity.products = products;
+    public void setProducts(List<Products> products) {
+        this.products = products;
     }
 
 }

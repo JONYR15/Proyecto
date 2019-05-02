@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Tienda Judy</string>
-    <string name="title_activity_customers">CustomersActivity</string>
+    <string name="title_activity_customers">Clientes</string>
     <string name="nombre">Nombre</string>
     <string name="apellido">Apellido</string>
     <string name="telefono">Telefono</string>
@@ -8,12 +8,10 @@
     <string name="usuario">Usuario</string>
     <string name="contraseña">Contraseña</string>
     <string name="eliminar">Eliminar</string>
-    /*Cliente*/
     <string name="idCustomer">Codigo</string>
     <string name="nombreCliente">Clientes</string>
     <string name="producto">Productos</string>
     <string name="factura">Factura</string>
-    /*Producto*/
 
-    <string name="title_activity_invoice">InvoiceActivity</string>
+    <string name="title_activity_invoice">Facturas</string>
 </resources>

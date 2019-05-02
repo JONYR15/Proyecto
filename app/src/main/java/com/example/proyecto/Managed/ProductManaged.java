@@ -23,8 +23,10 @@ import com.example.proyecto.ProductActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.References;
 import com.example.proyecto.model.Products;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -155,7 +157,7 @@ public class ProductManaged extends AppCompatActivity {
             int quantity = Integer.parseInt(((EditText) findViewById(R.id.etQuantity)).getText().toString());
             Double cost = Double.parseDouble(((EditText) findViewById(R.id.etCost)).getText().toString());
             Double sale = Double.parseDouble(((EditText) findViewById(R.id.etSale)).getText().toString());
-            Products product = new Products(idProducto, uploadImage(),description, quantity, cost, sale);
+            Products product = new Products(idProducto, uploadImage(), description, quantity, cost, sale);
             infoReference.child(References.PRODUCTOS_REFERENCE).push().setValue(product);
             limpiar();
             finish();
@@ -253,11 +255,12 @@ public class ProductManaged extends AppCompatActivity {
         return mime.getExtensionFromMimeType(cr.getType(uri));
     }
 
+    String urlFile;
+
     public String uploadImage() {
-        String nameFile = "";
+        urlFile = "";
         if (imageProductUri != null) {
-            nameFile = System.currentTimeMillis() + "." + getFileExtension(imageProductUri);
-            StorageReference fileRefecence = storageReference.child(nameFile);
+            StorageReference fileRefecence = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageProductUri));
             fileRefecence.putFile(imageProductUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -270,6 +273,7 @@ public class ProductManaged extends AppCompatActivity {
                                     mprogressBar.setProgress(0);
                                 }
                             }, 5000);
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -290,7 +294,7 @@ public class ProductManaged extends AppCompatActivity {
             Toast.makeText(this, "Archivo no seleccionado", Toast.LENGTH_SHORT).show();
         }
 
-        return nameFile;
+        return urlFile;
     }
 
 }

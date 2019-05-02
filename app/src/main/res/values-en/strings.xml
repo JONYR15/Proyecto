@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="app_name">Tienda Judy</string>
+    <string name="title_activity_customers">Customers</string>
+    <string name="title_activity_invoice">Invoices</string>
+    <string name="usuario">user</string>
+    <string name="contraseña">Password</string>
+    <string name="eliminar">Delete</string>
+    <string name="apellido">Last Name</string>
+    <string name="email">Email</string>
+    <string name="factura">Invoice</string>
+    <string name="idCustomer">Code</string>
+    <string name="nombre">Name</string>
+    <string name="nombreCliente">Customers</string>
+    <string name="producto">Products</string>
+    <string name="telefono">Telephone</string>
+</resources>

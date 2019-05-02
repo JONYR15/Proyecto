@@ -152,13 +152,15 @@
                 <Button
                     android:id="@+id/btEditar"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="32dp"
                     android:background="@drawable/button_custom"
                     android:onClick="editProduct"
                     android:text="Editar"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/etSale" />
@@ -167,7 +169,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="27dp"
                     android:text="Id Producto:"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
@@ -175,7 +177,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/ivProduct" />
 
                 <EditText
                     android:id="@+id/etIdProducto"
@@ -197,11 +199,11 @@
                 <Button
                     android:id="@+id/btCrear"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="32dp"
                     android:background="@drawable/button_custom"
                     android:onClick="createProduct"
                     android:text="Crear"
@@ -223,6 +225,41 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/etIdProducto" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivProduct"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="8dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBar"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageButton
+                    android:id="@+id/ibChooseImage"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintStart_toEndOf="@+id/ivProduct"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBar"
+                    app:srcCompat="@android:drawable/ic_menu_gallery" />
+
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

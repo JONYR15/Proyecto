@@ -37,6 +37,7 @@ public class ProductActivity extends AppCompatActivity {
 
     private DatabaseReference infoReference;
     private StorageReference storageReference;
+    private FirebaseStorage storage;
 
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
@@ -64,7 +65,7 @@ public class ProductActivity extends AppCompatActivity {
         });
 
         infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.PRODUCTOS_REFERENCE);
-        storageReference = FirebaseStorage.getInstance().getReference().child(References.IMAGES_PRODUCTS);
+        storage = FirebaseStorage.getInstance();
 
         infoReference.addValueEventListener(
                 new ValueEventListener() {
@@ -76,28 +77,24 @@ public class ProductActivity extends AppCompatActivity {
                         Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             Log.d("FragmentActivity", "Test Product" + data.getKey());
-                            product = new Products();
                             product = data.getValue(Products.class);
                             product.setKey(data.getKey());
-                            if (product != null && product.getImageProduct() != null) {
-                                final CountDownLatch countDownLatch = new CountDownLatch(1);
-                                    StorageReference image = storageReference.child(product.getImageProduct());
-                                Task<Uri> uriTask = image.getDownloadUrl()
-                                        .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                            @Override
-                                            public void onSuccess(Uri uri) {
-                                                countDownLatch.countDown();
-                                                product.setImageUri(uri);
-                                                products.add(product);
-                                                adapter.notifyDataSetChanged();
-                                            }
-                                        });
-                                    countDownLatch.countDown();
-                            } else {
-                                URL = null;
-                            }
-                            System.out.println("URLLLLL" + product.getImageUri());
 
+                            StorageReference image = storage.getReference().child(References.IMAGES_PRODUCTS + product.getImageProduct());
+                            image.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    product.setImageUri(uri);
+                                    products.add(product);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    products.add(product);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
                         }
                     }
 

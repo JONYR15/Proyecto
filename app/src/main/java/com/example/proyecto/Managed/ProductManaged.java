@@ -107,9 +107,6 @@ public class ProductManaged extends AppCompatActivity {
         cost = findViewById(R.id.etCost);
         sale = findViewById(R.id.etSale);
 
-        infoReference = database.getReference(References.INFO_REFERENCE);
-        storageReference = FirebaseStorage.getInstance().getReference(References.IMAGES_PRODUCTS);
-
         switch (getIntent().getIntExtra("accion", 1)) {
             case 1:
                 crear.setVisibility(Button.VISIBLE);
@@ -179,19 +176,25 @@ public class ProductManaged extends AppCompatActivity {
                             product = data.getValue(Products.class);
                             product.setKey(data.getKey());
                             if (product != null && product.getImageProduct() != null) {
-                                final CountDownLatch countDownLatch = new CountDownLatch(1);
                                 StorageReference image = storageReference.child(product.getImageProduct());
                                 Task<Uri> uriTask = image.getDownloadUrl()
                                         .addOnSuccessListener(new OnSuccessListener<Uri>() {
                                             @Override
                                             public void onSuccess(Uri uri) {
-                                                countDownLatch.countDown();
                                                 product.setImageUri(uri);
                                                 products.add(product);
                                             }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                products.add(product);
+                                            }
                                         });
-                                countDownLatch.countDown();
+                            }else{
+                                products.add(product);
                             }
+
 
                         }
                     }
@@ -216,7 +219,7 @@ public class ProductManaged extends AppCompatActivity {
             Double cost = Double.parseDouble(((EditText) findViewById(R.id.etCost)).getText().toString());
             Double sale = Double.parseDouble(((EditText) findViewById(R.id.etSale)).getText().toString());
             Products product = new Products(idProducto, uploadImage(), description, quantity, cost, sale);
-            infoReference.child(References.PRODUCTOS_REFERENCE).push().setValue(product);
+            infoReference.push().setValue(product);
             limpiar();
             finish();
         } else {
@@ -352,7 +355,7 @@ public class ProductManaged extends AppCompatActivity {
             Toast.makeText(this, "Archivo no seleccionado", Toast.LENGTH_SHORT).show();
         }
 
-        return imageProductUri.toString();
+        return fileName;
     }
 
 }

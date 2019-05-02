@@ -34,7 +34,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
+                android:text="Description"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                android:textSize="14sp"
+                android:typeface="monospace"
                 app:layout_constraintStart_toEndOf="@+id/ivProduct"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,7 +47,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
+                android:text="Quiantity"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                android:textSize="14sp"
+                android:typeface="monospace"
                 app:layout_constraintStart_toEndOf="@+id/ivProduct"
                 app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
 
@@ -54,7 +60,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
+                android:text="Cost"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                android:textSize="14sp"
+                android:typeface="monospace"
                 app:layout_constraintStart_toEndOf="@+id/ivProduct"
                 app:layout_constraintTop_toBottomOf="@+id/tvQuantity" />
 
@@ -64,7 +73,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
+                android:text="Sale"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                android:textSize="14sp"
+                android:typeface="monospace"
                 app:layout_constraintStart_toEndOf="@+id/ivProduct"
                 app:layout_constraintTop_toBottomOf="@+id/tvCost" />
 
@@ -74,7 +86,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="TextView"
+                android:text="ID"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                android:textSize="14sp"
+                android:typeface="monospace"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

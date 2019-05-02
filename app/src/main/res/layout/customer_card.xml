@@ -93,12 +93,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 android:text="NumberPhone"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display4"
                 android:textSize="18sp"
                 android:typeface="monospace"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvLastName" />
+                app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
 
             <TextView
                 android:id="@+id/tvEmail"
@@ -111,7 +113,7 @@
                 android:textSize="18sp"
                 android:typeface="monospace"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvNumberPhone" />
+                app:layout_constraintTop_toBottomOf="@+id/tvLastName" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.proyecto.Adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,7 +22,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
 
     private List<Customers> items;
 
-    private String ID_CUSOMER = String.valueOf(R.string.idCustomer);
+    private Context context;
 
     public static class CustomerViewHolder extends RecyclerView.ViewHolder {
         // Campos respectivos de un item
@@ -80,16 +81,17 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     public CustomerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.customer_card, viewGroup, false);
+        context = viewGroup.getContext();
         return new CustomerViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(CustomerViewHolder viewHolder, int i) {
         viewHolder.key = items.get(i).getKey();
-        viewHolder.idCustomer.setText(R.string.idCustomer + ": " + Integer.toString(items.get(i).getId()));
-        viewHolder.name.setText(R.string.nombre + ": " + items.get(i).getName());
-        viewHolder.lastName.setText(R.string.apellido + ": " + items.get(i).getLastName());
-        viewHolder.numberPhone.setText(R.string.telefono + ": " + items.get(i).getNumberPhone());
-        viewHolder.email.setText(R.string.email + ": " + items.get(i).getEmail());
+        viewHolder.idCustomer.setText(context.getString(R.string.idCustomer) + ":" + items.get(i).getId());
+        viewHolder.name.setText(context.getString(R.string.nombre) + ":" + items.get(i).getName());
+        viewHolder.lastName.setText(context.getString(R.string.apellido) + ":" + items.get(i).getLastName());
+        viewHolder.numberPhone.setText(context.getString(R.string.telefono) + ":" + items.get(i).getNumberPhone());
+        viewHolder.email.setText(context.getString(R.string.email) + ":" + items.get(i).getEmail());
     }
 }

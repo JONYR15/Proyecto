@@ -36,8 +36,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     private Context context;
 
-    private StorageReference storageReference;
-
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         private TextView idProduct;
         private ImageView imageProduct;
@@ -93,7 +91,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.product_card, parent, false);
         context = parent.getContext();
-        storageReference = FirebaseStorage.getInstance().getReference(References.IMAGES_PRODUCTS);
         return new ProductViewHolder(v);
     }
 
@@ -107,10 +104,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
         holder.idProduct.setText("ID: " + items.get(i).getId());
-        holder.description.setText("Descripción: " + items.get(i).getDescription());
-        holder.quantity.setText("Cantidad: " + items.get(i).getQuantity());
-        holder.cost.setText("Precio Costo: " + items.get(i).getCost());
-        holder.sale.setText("Precio Venta: " + items.get(i).getSale());
+        holder.description.setText("Nombre:" + items.get(i).getDescription());
+        holder.quantity.setText("Cantidad:" + items.get(i).getQuantity());
+        holder.cost.setText("Costo:" + items.get(i).getCost());
+        holder.sale.setText("Venta:" + items.get(i).getSale());
     }
 
     @Override

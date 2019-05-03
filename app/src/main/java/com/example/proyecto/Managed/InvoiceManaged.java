@@ -43,6 +43,7 @@ public class InvoiceManaged extends AppCompatActivity {
         editTName = (EditText)findViewById(R.id.editTextName);
         btnInvoice = (Button)findViewById(R.id.buttonAddInvoice);
         selectCustomer = findViewById(R.id.selectCustomer);
+        invoce = new Invoice();
 
         String date_etDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
         editTDate.setText(date_etDate);
@@ -70,8 +71,6 @@ public class InvoiceManaged extends AppCompatActivity {
             }
         }
         editTCustomer.setText(requetedCustomer.getName() +" "+ requetedCustomer.getLastName());
-
-        invoce = new Invoice();
         invoce.setKeyCustomer(requetedCustomer.getKey());
     }
 

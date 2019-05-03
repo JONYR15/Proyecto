@@ -52,12 +52,7 @@ public class CustomersActivity extends AppCompatActivity {
             }
         });
 
-        switch (getIntent().getIntExtra("accion", 0)) {
-            case 1:
 
-            case 2:
-
-        }
 
         infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.CLIENTES_REFERENCE);
 
@@ -73,6 +68,7 @@ public class CustomersActivity extends AppCompatActivity {
                             Log.d("FragmentActivity", "Test Customer" + data.getKey());
                             Customers customer = data.getValue(Customers.class);
                             customer.setKey(data.getKey());
+                            customer.setAccion(getIntent().getIntExtra("accion",0));
                             customers.add(customer);
                         }
 

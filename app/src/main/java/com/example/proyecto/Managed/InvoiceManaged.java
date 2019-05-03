@@ -1,6 +1,7 @@
 package com.example.proyecto.Managed;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,15 +13,21 @@ import android.widget.Toast;
 
 import com.example.proyecto.CustomersActivity;
 import com.example.proyecto.R;
+import com.example.proyecto.model.Customers;
+import com.example.proyecto.model.Invoice;
 
 public class InvoiceManaged extends AppCompatActivity {
 
-    private EditText editTCustomer;
+    private static EditText editTCustomer;
     private EditText editTAuto;
     private EditText editTDate;
     private EditText editTName;
     private Button btnInvoice;
     private ImageButton selectCustomer;
+
+    private static Customers requetedCustomer;
+
+    private static Invoice invoce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,18 @@ public class InvoiceManaged extends AppCompatActivity {
     public void selectCustomer(){
         Intent intent = new Intent(this, CustomersActivity.class);
         startActivity(intent);
+    }
+
+    public static void selectCustomer( String key){
+        for (Customers customer:CustomersActivity.getCustomers()){
+            if (customer.getKey().equals(key)){
+                requetedCustomer= customer;
+            }
+        }
+        editTCustomer.setText(requetedCustomer.getName() +" "+ requetedCustomer.getLastName());
+
+        invoce = new Invoice();
+        invoce.setKeyCustomer(requetedCustomer.getKey());
     }
 
 

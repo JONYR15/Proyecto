@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void customers(View view){
         Intent intent = new Intent(view.getContext(), CustomersActivity.class);
+        intent.putExtra("accion",1);
         view.getContext().startActivity(intent);
     }
 

@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Tienda Judy</string>
-    <string name="title_activity_customers">Customers</string>
-    <string name="title_activity_invoice">Invoices</string>
-    <string name="usuario">user</string>
-    <string name="contraseña">Password</string>
-    <string name="eliminar">Delete</string>
-    <string name="apellido">Last Name</string>
-    <string name="email">Email</string>
-    <string name="factura">Invoice</string>
-    <string name="idCustomer">Code</string>
-    <string name="nombre">Name</string>
-    <string name="nombreCliente">Customers</string>
-    <string name="producto">Products</string>
-    <string name="telefono">Telephone</string>
+    <string name="title_activity_customers">CustomersActivity</string>
+
+    <string name="cliente">Cliente</string>
+    <string name="cliente_id">ID</string>
+    <string name="nombre_cliente">First Name</string>
+    <string name="apellido_cliente">Last Name</string>
+    <string name="telefono_cliente">Telephone</string>
+    <string name="email_cliente">Email</string>
+    <string name="usuario_cliente">User</string>
+    <string name="contraseña_cliente">Password</string>
+    <string name="eliminar_cliente">Delete</string>
+    <string name="idProducto">id Product</string>
+    <string name="Descripcion_producto">Description</string>
+    <string name="Cantidad_producto">Quantity</string>
+    <string name="Precio_Costo_producto">Price Cost</string>
+    <string name="Precio_Venta_producto">Price Sale</string>
+    <string name="Crear_producto">Create</string>
+    <string name="producto">Productos</string>
+
+
+    <string name="title_activity_invoice">InvoiceActivity</string>
+    <string name="factura">Invoices</string>
 </resources>

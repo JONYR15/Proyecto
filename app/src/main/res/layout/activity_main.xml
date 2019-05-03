@@ -93,7 +93,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="monospace"
-                    android:text="@string/nombreCliente"
+                    android:text="@string/nombre_cliente"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display4"
                     android:textSize="30sp"

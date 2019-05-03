@@ -52,6 +52,8 @@ public class CustomersActivity extends AppCompatActivity {
             }
         });
 
+
+
         infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.CLIENTES_REFERENCE);
 
         infoReference.addValueEventListener(
@@ -63,9 +65,10 @@ public class CustomersActivity extends AppCompatActivity {
                         Log.w("TodoApp", "getUser:onCancelled " + dataSnapshot.toString());
                         Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            Log.d("FragmentActivity","Test Customer" + data.getKey());
+                            Log.d("FragmentActivity", "Test Customer" + data.getKey());
                             Customers customer = data.getValue(Customers.class);
                             customer.setKey(data.getKey());
+                            customer.setAccion(getIntent().getIntExtra("accion",0));
                             customers.add(customer);
                         }
 

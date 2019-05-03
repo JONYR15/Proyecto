@@ -6,7 +6,6 @@
     <string name="nombre_cliente">Nombre</string>
     <string name="apellido_cliente">Apellido</string>
     <string name="telefono_cliente">Telefono</string>
-    <string name="email_cliente">Correo Electronico</string>
     <string name="usuario_cliente">Usuario</string>
     <string name="contraseña_cliente">Contraseña</string>
     <string name="eliminar_cliente">Eliminar</string>
@@ -25,4 +24,5 @@
 
 
     <string name="title_activity_invoice">InvoiceActivity</string>
+    <string name="email_cliente">Correo Electronico</string>
 </resources>

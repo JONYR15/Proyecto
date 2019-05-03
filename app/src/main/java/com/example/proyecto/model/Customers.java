@@ -10,6 +10,7 @@ public class Customers {
     private String email;
     private String user;
     private String pass;
+    private int accion;
 
     public Customers() {
     }
@@ -110,5 +111,13 @@ public class Customers {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public int getAccion() {
+        return accion;
+    }
+
+    public void setAccion(int accion) {
+        this.accion = accion;
     }
 }

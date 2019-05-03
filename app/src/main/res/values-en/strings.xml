@@ -8,7 +8,6 @@
     <string name="usuario_cliente">User</string>
     <string name="contraseña_cliente">Pasword</string>
     <string name="eliminar_cliente">Delete</string>
-    /*Producto*/
     <string name="idProducto">id Product</string>
     <string name="Descripcion_producto">Description</string>
     <string name="Cantidad_producto">Quantity</string>

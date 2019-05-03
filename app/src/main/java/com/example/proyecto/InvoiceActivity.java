@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import com.example.proyecto.Adapter.InvoiceAdapter;
+import com.example.proyecto.Managed.InvoiceManaged;
 import com.example.proyecto.model.Invoice;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

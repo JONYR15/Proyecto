@@ -1,5 +1,6 @@
 package com.example.proyecto.Managed;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,11 @@ import com.example.proyecto.R;
 import com.example.proyecto.model.Customers;
 import com.example.proyecto.model.Invoice;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class InvoiceManaged extends AppCompatActivity {
 
     private static EditText editTCustomer;
@@ -23,7 +29,7 @@ public class InvoiceManaged extends AppCompatActivity {
     private ImageButton selectCustomer;
 
     private static Customers requetedCustomer;
-
+    DatePickerDialog datePickerDialog;
     private static Invoice invoce;
 
     @Override
@@ -37,6 +43,10 @@ public class InvoiceManaged extends AppCompatActivity {
         editTName = (EditText)findViewById(R.id.editTextName);
         btnInvoice = (Button)findViewById(R.id.buttonAddInvoice);
         selectCustomer = findViewById(R.id.selectCustomer);
+        invoce = new Invoice();
+
+        String date_etDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+        editTDate.setText(date_etDate);
 
         selectCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +71,6 @@ public class InvoiceManaged extends AppCompatActivity {
             }
         }
         editTCustomer.setText(requetedCustomer.getName() +" "+ requetedCustomer.getLastName());
-
-        invoce = new Invoice();
         invoce.setKeyCustomer(requetedCustomer.getKey());
     }
 

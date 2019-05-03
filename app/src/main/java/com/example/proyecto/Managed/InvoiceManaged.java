@@ -14,7 +14,10 @@ import com.example.proyecto.R;
 import com.example.proyecto.model.Customers;
 import com.example.proyecto.model.Invoice;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class InvoiceManaged extends AppCompatActivity {
 
@@ -41,7 +44,8 @@ public class InvoiceManaged extends AppCompatActivity {
         btnInvoice = (Button)findViewById(R.id.buttonAddInvoice);
         selectCustomer = findViewById(R.id.selectCustomer);
 
-        editTDate.setText("Fecha"+getCurrentDate());
+        String date_etDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+        editTDate.setText(date_etDate);
 
         selectCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,11 +56,6 @@ public class InvoiceManaged extends AppCompatActivity {
             }
         });
 
-    }
-
-    public Calendar getCurrentDate(){
-        Calendar calendar = Calendar.getInstance();
-        return calendar;
     }
 
     public void selectCustomer(){

@@ -65,7 +65,7 @@
                 android:layout_height="19dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Name"
+                android:text="@string/nombre_cliente"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -76,7 +76,7 @@
                 android:layout_height="19dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="LastName"
+                android:text="@string/apellido_cliente"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvName" />
@@ -87,7 +87,7 @@
                 android:layout_height="19dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="NumberPhone"
+                android:text="@string/telefono_cliente"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvLastName" />
@@ -98,7 +98,7 @@
                 android:layout_height="19dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Email"
+                android:text="@string/email_cliente"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvNumberPhone" />

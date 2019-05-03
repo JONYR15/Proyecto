@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="Cliente">Code</string>
+    <string name="nombre_cliente">First Name</string>
+    <string name="apellido_cliente">Last Name</string>
+    <string name="telefono_cliente">Telephone</string>
+    <string name="email_cliente">Email</string>
+    <string name="usuario_cliente">User</string>
+    <string name="contraseña_cliente">Pasword</string>
+    <string name="eliminar_cliente">Delete</string>
+    /*Producto*/
+    <string name="idProducto">id Product</string>
+    <string name="Descripcion_producto">Description</string>
+    <string name="Cantidad_producto">Quantity</string>
+    <string name="Precio_Costo_producto">Price Cost</string>
+    <string name="Precio_Venta_producto">Price Sale</string>
+    <string name="Crear_producto">Create</string>
 
 </resources>

@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.proyecto.CustomersActivity;
+import com.example.proyecto.Activity.CustomersActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.References;
 import com.example.proyecto.model.Customers;

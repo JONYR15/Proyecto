@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.Toast;
+
+import com.example.proyecto.Activity.CustomersActivity;
+import com.example.proyecto.Activity.InvoiceActivity;
+import com.example.proyecto.Activity.ProductActivity;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -11,17 +11,17 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Managed.InvoiceManaged"></activity>
         <activity
-            android:name=".InvoiceActivity"
+            android:name=".Activity.InvoiceActivity"
             android:label="@string/title_activity_invoice"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Managed.CustomerManaged" />
         <activity
-            android:name=".CustomersActivity"
+            android:name=".Activity.CustomersActivity"
             android:label="Clientes"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Managed.ProductManaged" />
         <activity
-            android:name=".ProductActivity"
+            android:name=".Activity.ProductActivity"
             android:label="Productos"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity">

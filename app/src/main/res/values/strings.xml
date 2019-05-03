@@ -1,16 +1,28 @@
 <resources>
     <string name="app_name">Tienda Judy</string>
-    <string name="title_activity_customers">Clientes</string>
-    <string name="nombre">Nombre</string>
-    <string name="apellido">Apellido</string>
-    <string name="telefono">Telefono</string>
-    <string name="email">Email</string>
-    <string name="usuario">Usuario</string>
-    <string name="contraseña">Contraseña</string>
-    <string name="eliminar">Eliminar</string>
-    <string name="idCustomer">ID</string>
-    <string name="nombreCliente">Clientes</string>
-    <string name="producto">Productos</string>
-    <string name="factura">Facturas</string>
-    <string name="title_activity_invoice">Facturas</string>
+    <string name="title_activity_customers">CustomersActivity</string>
+    /*Cliente*/
+    <string name="Cliente">Codigo</string>
+    <string name="nombre_cliente">Nombre</string>
+    <string name="apellido_cliente">Apellido</string>
+    <string name="telefono_cliente">Telefono</string>
+    <string name="usuario_cliente">Usuario</string>
+    <string name="contraseña_cliente">Contraseña</string>
+    <string name="eliminar_cliente">Eliminar</string>
+    /*Producto*/
+    <string name="idProducto">id Producto</string>
+    <string name="Descripcion_producto">Descripcion</string>
+    <string name="Cantidad_producto">Cantidad</string>
+    <string name="Precio_Costo_producto">Precio Costo</string>
+    <string name="Precio_Venta_producto">Precio Venta</string>
+    <string name="Crear_producto">Crear</string>
+
+    /*Factura*/
+
+
+
+
+
+    <string name="title_activity_invoice">InvoiceActivity</string>
+    <string name="email_cliente">Correo Electronico</string>
 </resources>

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.proyecto.Activity.CustomersActivity;
 import com.example.proyecto.R;
@@ -23,7 +24,7 @@ public class InvoiceManaged extends AppCompatActivity {
 
     private static EditText editTCustomer;
     private EditText editTAuto;
-    private EditText editTDate;
+    private TextView viewDate;
     private EditText editTName;
     private Button btnInvoice;
     private ImageButton selectCustomer;
@@ -39,14 +40,14 @@ public class InvoiceManaged extends AppCompatActivity {
 
         editTCustomer = (EditText)findViewById(R.id.editTextCustomer);
         editTAuto = (EditText)findViewById(R.id.editTextAuto);
-        editTDate = (EditText)findViewById(R.id.editTextDate);
+        viewDate = (TextView) findViewById(R.id.tvDate);
         editTName = (EditText)findViewById(R.id.editTextName);
         btnInvoice = (Button)findViewById(R.id.buttonAddInvoice);
         selectCustomer = findViewById(R.id.selectCustomer);
         invoce = new Invoice();
 
         String date_etDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
-        editTDate.setText(date_etDate);
+        viewDate.setText("Fecha: "+date_etDate);
 
         selectCustomer.setOnClickListener(new View.OnClickListener() {
             @Override

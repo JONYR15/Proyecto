@@ -49,7 +49,7 @@ public class InvoiceManaged extends AppCompatActivity {
         btnInvoice = (Button)findViewById(R.id.buttonAddInvoice);
         selectCustomer = findViewById(R.id.selectCustomer);
 
-        String date_etDate = new SimpleDateFormat("dd/mm/yyyy", Locale.getDefault()).format(new Date());
+        String date_etDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
         editTDate.setText(date_etDate);
 
         selectCustomer.setOnClickListener(new View.OnClickListener() {

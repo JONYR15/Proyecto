@@ -79,8 +79,10 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    InvoiceManaged.selectCustomer(key);
-                    ((CustomersActivity)v.getContext()).finish();
+                    if (accion==2) {
+                        InvoiceManaged.selectCustomer(key);
+                        ((CustomersActivity) v.getContext()).finish();
+                    }
                 }
             });
         }

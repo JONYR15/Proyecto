@@ -2,7 +2,6 @@ package com.example.proyecto.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,15 +11,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.proyecto.CustomersActivity;
+import com.example.proyecto.Activity.CustomersActivity;
 import com.example.proyecto.Managed.CustomerManaged;
 import com.example.proyecto.Managed.InvoiceManaged;
 import com.example.proyecto.R;
 import com.example.proyecto.model.Customers;
 
 import java.util.List;
-
-import static android.provider.Settings.System.getString;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
 
@@ -108,11 +105,11 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     @Override
     public void onBindViewHolder(CustomerViewHolder viewHolder, int i) {
         viewHolder.key = items.get(i).getKey();
-        viewHolder.idCustomer.setText(context.getString(R.string.idCustomer) + ":" + items.get(i).getId());
-        viewHolder.name.setText(context.getString(R.string.nombre) + ":" + items.get(i).getName());
-        viewHolder.lastName.setText(context.getString(R.string.apellido) + ":" + items.get(i).getLastName());
-        viewHolder.numberPhone.setText(context.getString(R.string.telefono) + ":" + items.get(i).getNumberPhone());
-        viewHolder.email.setText(context.getString(R.string.email) + ":" + items.get(i).getEmail());
+        viewHolder.idCustomer.setText(context.getString(R.string.cliente_id) + ":" + items.get(i).getId());
+        viewHolder.name.setText(context.getString(R.string.nombre_cliente) + ":" + items.get(i).getName());
+        viewHolder.lastName.setText(context.getString(R.string.apellido_cliente) + ":" + items.get(i).getLastName());
+        viewHolder.numberPhone.setText(context.getString(R.string.telefono_cliente) + ":" + items.get(i).getNumberPhone());
+        viewHolder.email.setText(context.getString(R.string.email_cliente) + ":" + items.get(i).getEmail());
 
         viewHolder.accion = items.get(i).getAccion();
         if (items.get(i).getAccion()==1) {

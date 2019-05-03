@@ -1,4 +1,4 @@
-package com.example.proyecto;
+package com.example.proyecto.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import com.example.proyecto.Adapter.InvoiceAdapter;
 import com.example.proyecto.Managed.InvoiceManaged;
+import com.example.proyecto.R;
+import com.example.proyecto.References;
 import com.example.proyecto.model.Invoice;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

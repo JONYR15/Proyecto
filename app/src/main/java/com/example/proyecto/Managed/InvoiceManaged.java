@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.proyecto.Activity.CustomersActivity;
 import com.example.proyecto.CustomersActivity;
 import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;

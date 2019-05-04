@@ -102,6 +102,7 @@ public class InvoiceManaged extends AppCompatActivity {
 
     public void selectCustomer() {
         Intent intent = new Intent(this, CustomersActivity.class);
+        intent.putExtra("accion",2);
         startActivity(intent);
     }
 

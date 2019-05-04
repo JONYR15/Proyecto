@@ -17,20 +17,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void customers(View view){
+    public void customers(View view) {
         Intent intent = new Intent(view.getContext(), CustomersActivity.class);
-        intent.putExtra("accion",1);
+        intent.putExtra("accion", 1);
         view.getContext().startActivity(intent);
+
     }
 
-    public void products(View view){
+    public void products(View view) {
         Intent intent = new Intent(view.getContext(), ProductActivity.class);
         intent.putExtra("accion",1);
         view.getContext().startActivity(intent);
     }
 
-    public void invoices(View view){
+    public void invoices(View view) {
         Intent intent = new Intent(view.getContext(), InvoiceActivity.class);
         view.getContext().startActivity(intent);
+        Sound sound = new Sound();
+        sound.Moneda(view);
     }
 }

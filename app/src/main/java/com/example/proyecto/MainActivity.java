@@ -21,18 +21,21 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(view.getContext(), CustomersActivity.class);
         intent.putExtra("accion", 1);
         view.getContext().startActivity(intent);
-
+        Sound sound = new Sound();
+        sound.Cliente(view);
     }
 
     public void products(View view) {
         Intent intent = new Intent(view.getContext(), ProductActivity.class);
         view.getContext().startActivity(intent);
+        Sound sound = new Sound();
+        sound.Moneda(view);
     }
 
     public void invoices(View view) {
         Intent intent = new Intent(view.getContext(), InvoiceActivity.class);
         view.getContext().startActivity(intent);
         Sound sound = new Sound();
-        sound.Moneda(view);
+        sound.Producto(view);
     }
 }

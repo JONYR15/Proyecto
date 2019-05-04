@@ -3,6 +3,8 @@ package com.example.proyecto.Managed;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +25,10 @@ public class CustomerManaged extends AppCompatActivity {
     private Button editar;
     private Button eliminar;
 
+    private MenuItem mCrear;
+    private MenuItem mEditar;
+    private MenuItem mEliminar;
+
     private String key;
 
     private EditText id;
@@ -36,6 +42,8 @@ public class CustomerManaged extends AppCompatActivity {
     private Customers requestedCustomer;
 
     private DatabaseReference infoReference;
+
+    private Integer accion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +64,25 @@ public class CustomerManaged extends AppCompatActivity {
 
         infoReference = database.getReference(References.INFO_REFERENCE);
 
+        accion = getIntent().getIntExtra("accion", 1);
+
         switch (getIntent().getIntExtra("accion", 1)) {
             case 1:
                 crear.setVisibility(Button.VISIBLE);
                 editar.setVisibility(Button.GONE);
                 eliminar.setVisibility(Button.GONE);
 
+
+
                 break;
             case 2:
                 crear.setVisibility(Button.GONE);
                 editar.setVisibility(Button.VISIBLE);
                 eliminar.setVisibility(Button.GONE);
+
+               // mCrear.setVisibility(Button.GONE);
+               // mEditar.setVisibility(Button.VISIBLE);
+               // mEliminar.setVisibility(Button.GONE);
 
                 for (Customers customer : CustomersActivity.getCustomers()) {
                     if (customer.getKey().equals(getIntent().getStringExtra("key"))) {
@@ -88,6 +104,10 @@ public class CustomerManaged extends AppCompatActivity {
                 crear.setVisibility(Button.GONE);
                 editar.setVisibility(Button.GONE);
                 eliminar.setVisibility(Button.VISIBLE);
+
+               //  mCrear.setVisibility(Button.GONE);
+               // mEditar.setVisibility(Button.GONE);
+               // mEliminar.setVisibility(Button.VISIBLE);
 
                 for (Customers customer : CustomersActivity.getCustomers()) {
                     if (customer.getKey().equals(getIntent().getStringExtra("key"))) {
@@ -114,6 +134,73 @@ public class CustomerManaged extends AppCompatActivity {
 
                 break;
         }
+    }
+
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        mCrear = menu.findItem(R.id.miCreate);
+        mEditar = menu.findItem(R.id.miEdit);
+        mEliminar = menu.findItem(R.id.miDelete);
+        switch (getIntent().getIntExtra("accion", 1)) {
+            case 1:
+                mCrear.setVisible(true);
+                mEditar.setVisible(false);
+                mEliminar.setVisible(false);
+                break;
+            case 2:
+                mCrear.setVisible(false);
+                mEditar.setVisible(true);
+                mEliminar.setVisible(false);
+                break;
+            case 3:
+                mCrear.setVisible(false);
+                mEditar.setVisible(false);
+                mEliminar.setVisible(true);
+                break;
+        }
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.action_customer,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id=item.getItemId();
+        switch (id) {
+            case R.id.miCreate:
+                item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        createCustomer(item.getActionView());
+                        return false;
+                    }
+                });
+                break;
+            case R.id.miEdit:
+                item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        editCustomer(item.getActionView());
+                        return false;
+                    }
+                });
+                break;
+            case R.id.miDelete:
+                item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        deleteCustomer(item.getActionView());
+                        return false;
+                    }
+                });
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

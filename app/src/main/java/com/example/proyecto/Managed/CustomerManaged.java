@@ -37,8 +37,6 @@ public class CustomerManaged extends AppCompatActivity {
 
     private DatabaseReference infoReference;
 
-    private DatabaseReference infoReferenceCustomers;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -3,7 +3,6 @@ package com.example.proyecto.model;
 public class Details {
 
     private String key;
-    private Integer id;
     private String description;
     private Integer quantity;
     private Double priceUnitary;
@@ -12,17 +11,15 @@ public class Details {
     public Details() {
     }
 
-    public Details(String key, Integer id, String description, Integer quantity, Double priceUnitary, Double totalPrice) {
+    public Details(String key, String description, Integer quantity, Double priceUnitary, Double totalPrice) {
         this.key = key;
-        this.id = id;
         this.description = description;
         this.quantity = quantity;
         this.priceUnitary = priceUnitary;
         this.totalPrice = totalPrice;
     }
 
-    public Details(Integer id, String description, Integer quantity, Double priceUnitary, Double totalPrice) {
-        this.id = id;
+    public Details(String description, Integer quantity, Double priceUnitary, Double totalPrice) {
         this.description = description;
         this.quantity = quantity;
         this.priceUnitary = priceUnitary;
@@ -35,14 +32,6 @@ public class Details {
 
     public void setKey(String key) {
         this.key = key;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getDescription() {

@@ -14,6 +14,7 @@ import com.example.proyecto.Activity.CustomersActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.model.Customers;
 import com.example.proyecto.model.Invoice;
+import com.example.proyecto.model.Products;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -60,6 +61,14 @@ public class InvoiceManaged extends AppCompatActivity {
 
     }
 
+    public static Invoice getInvoce() {
+        return invoce;
+    }
+
+    public static void setInvoce(Invoice invoce) {
+        InvoiceManaged.invoce = invoce;
+    }
+
     public void selectCustomer(){
         Intent intent = new Intent(this, CustomersActivity.class);
         startActivity(intent);
@@ -73,8 +82,19 @@ public class InvoiceManaged extends AppCompatActivity {
         }
         editTCustomer.setText(requetedCustomer.getName() +" "+ requetedCustomer.getLastName());
         invoce.setKeyCustomer(requetedCustomer.getKey());
+
+    }
+    /*
+    public void selectProduct(String key){
+        for (Products :CustomersActivity.getCustomers()){
+            if (customer.getKey().equals(key)){
+                requetedCustomer= customer;
+            }
+        }
+        editTCustomer.setText(requetedCustomer.getName() +" "+ requetedCustomer.getLastName());
+        invoce.setKeyCustomer(requetedCustomer.getKey());
     }
 
-
+    */
 
 }

@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void products(View view) {
         Intent intent = new Intent(view.getContext(), ProductActivity.class);
+        intent.putExtra("accion",1);
         view.getContext().startActivity(intent);
     }
 

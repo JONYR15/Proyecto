@@ -2,10 +2,12 @@ package com.example.proyecto.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,11 +34,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         private TextView quantity;
         private TextView cost;
         private TextView sale;
+        private ImageButton ibedit;
+        private ImageButton ibdelete;
 
 
         public String key;
         public String nameImage;
-
+        private Integer accion;
 
         public ProductViewHolder(View v) {
             super(v);
@@ -46,6 +50,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             quantity = (TextView) v.findViewById(R.id.tvQuantity);
             cost = (TextView) v.findViewById(R.id.tvCost);
             sale = (TextView) v.findViewById(R.id.tvSale);
+            ibdelete = (ImageButton)v.findViewById(R.id.ibDelete);
+            ibedit = (ImageButton)v.findViewById(R.id.ibEdit);
+
 
             ((ImageButton) v.findViewById(R.id.ibEdit)).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -97,6 +104,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.quantity.setText("Cantidad:" + items.get(i).getQuantity());
         holder.cost.setText("Costo:" + items.get(i).getCost());
         holder.sale.setText("Venta:" + items.get(i).getSale());
+
+        holder.accion = items.get(i).getAction();
+        if (items.get(i).getAction()==1) {
+            holder.ibedit.setVisibility(Button.VISIBLE);
+            holder.ibdelete.setVisibility(Button.VISIBLE);
+        }else{
+            holder.ibedit.setVisibility(Button.GONE);
+            holder.ibdelete.setVisibility(Button.GONE);
+        }
     }
 
     @Override

@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.proyecto.Activity.ProductActivity;
+import com.example.proyecto.Managed.InvoiceManaged;
 import com.example.proyecto.Managed.ProductManaged;
 import com.example.proyecto.R;
 import com.example.proyecto.model.Products;
@@ -74,6 +76,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     v.getContext().startActivity(intent);
                     Toast.makeText(v.getContext(), "Eliminar " + description.getText().toString(), Toast.LENGTH_SHORT).show();
                 }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        InvoiceManaged.selectProduct(key);
+                        ((ProductActivity) v.getContext()).finish();
+                    }
+
             });
         }
     }

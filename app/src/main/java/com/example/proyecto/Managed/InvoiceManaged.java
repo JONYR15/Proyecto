@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,9 +14,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.proyecto.Activity.CustomersActivity;
+import com.example.proyecto.Activity.ProductActivity;
+import com.example.proyecto.Adapter.DetailsAdapter;
+import com.example.proyecto.Adapter.ProductAdapter;
 import com.example.proyecto.R;
 import com.example.proyecto.References;
 import com.example.proyecto.model.Customers;
+import com.example.proyecto.model.Details;
 import com.example.proyecto.model.Invoice;
 import com.example.proyecto.model.Products;
 import com.google.firebase.database.ChildEventListener;
@@ -41,10 +47,15 @@ public class InvoiceManaged extends AppCompatActivity {
     private EditText editTName;
     private Button btnInvoice;
     private ImageButton selectCustomer;
+    private Button selectProduct;
 
-    private static Customers requetedCustomer;
+    private static Customers requestedCustomer;
+    private static Products requestedProduct;
     DatePickerDialog datePickerDialog;
     private static Invoice invoce;
+    private RecyclerView recycler;
+    private static android.support.v7.widget.RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager lManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +68,7 @@ public class InvoiceManaged extends AppCompatActivity {
         editTName = (EditText) findViewById(R.id.editTextName);
         btnInvoice = (Button) findViewById(R.id.buttonAddInvoice);
         selectCustomer = findViewById(R.id.selectCustomer);
+        selectProduct = findViewById(R.id.buttonAddInvoice);
         invoce = new Invoice();
 
         String date_etDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
@@ -66,6 +78,15 @@ public class InvoiceManaged extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CustomersActivity.class);
+                intent.putExtra("accion", 2);
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        selectProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ProductActivity.class);
                 intent.putExtra("accion", 2);
                 v.getContext().startActivity(intent);
             }
@@ -90,6 +111,16 @@ public class InvoiceManaged extends AppCompatActivity {
                     }
                 });
 
+        recycler = (RecyclerView) findViewById(R.id.recycler);
+        recycler.setHasFixedSize(true);
+
+        // Usar un administrador para LinearLayout
+        lManager = new LinearLayoutManager(this);
+        recycler.setLayoutManager(lManager);
+
+        adapter = new DetailsAdapter(invoce.getDetailsList());
+        recycler.setAdapter(adapter);
+
     }
 
     public static Invoice getInvoce() {
@@ -108,24 +139,29 @@ public class InvoiceManaged extends AppCompatActivity {
     public static void selectCustomer(String key) {
         for (Customers customer : CustomersActivity.getCustomers()) {
             if (customer.getKey().equals(key)) {
-                requetedCustomer = customer;
+                requestedCustomer = customer;
             }
         }
-        editTCustomer.setText(requetedCustomer.getName() + " " + requetedCustomer.getLastName());
-        invoce.setKeyCustomer(requetedCustomer.getKey());
+        editTCustomer.setText(requestedCustomer.getName() + " " + requestedCustomer.getLastName());
+        invoce.setKeyCustomer(requestedCustomer.getKey());
 
     }
-    /*
-    public void selectProduct(String key){
-        for (Products :CustomersActivity.getCustomers()){
-            if (customer.getKey().equals(key)){
-                requetedCustomer= customer;
+
+    public static void selectProduct(String key){
+        for (Products product :ProductActivity.getProducts()){
+            if (product.getKey().equals(key)){
+                requestedProduct= product;
             }
         }
-        editTCustomer.setText(requetedCustomer.getName() +" "+ requetedCustomer.getLastName());
-        invoce.setKeyCustomer(requetedCustomer.getKey());
-    }
 
-    */
+        Details details = new Details();
+        details.setDescription(requestedProduct.getDescription());
+        details.setQuantity(1);
+        details.setPriceUnitary(requestedProduct.getSale());
+        details.setTotalPrice(1*requestedProduct.getSale());
+
+        invoce.getDetailsList().add(details);
+        adapter.notifyDataSetChanged();
+    }
 
 }

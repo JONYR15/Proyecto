@@ -2,7 +2,7 @@ package com.example.proyecto.model;
 
 import android.net.Uri;
 
-public class Products {
+public class Products extends Details {
 
     private String key;
     private Integer id;

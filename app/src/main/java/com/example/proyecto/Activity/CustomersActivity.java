@@ -9,7 +9,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.proyecto.Adapter.CustomerAdapter;
 import com.example.proyecto.Managed.CustomerManaged;
@@ -34,6 +37,28 @@ public class CustomersActivity extends AppCompatActivity {
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id=item.getItemId();
+        switch (id){
+            case R.id.fab:
+                Intent intent = new Intent(this,CustomerManaged.class);
+                intent.putExtra("accion", 1);
+                startActivity(intent);
+                break;
+            case R.id.ibEditar:
+                Toast.makeText(this, "Refrescando...", Toast.LENGTH_SHORT).show();
+                break;
+
+        } return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

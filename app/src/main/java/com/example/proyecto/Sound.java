@@ -12,12 +12,17 @@ public class Sound {
     }
 
     public void Moneda(View view) {
-        MediaPlayer mp = MediaPlayer.create(view.getContext(),R.raw.mario_coin);
+        MediaPlayer mp = MediaPlayer.create(view.getContext(),R.raw.mariocoin);
         mp.start();
     }
 
     public void Cliente(View view) {
-        MediaPlayer mp = MediaPlayer.create(view.getContext(),R.raw.);
+        MediaPlayer mp = MediaPlayer.create(view.getContext(),R.raw.nuevo);
+        mp.start();
+    }
+
+    public void Producto(View view) {
+        MediaPlayer mp = MediaPlayer.create(view.getContext(),R.raw.cajaregistradora);
         mp.start();
     }
 }

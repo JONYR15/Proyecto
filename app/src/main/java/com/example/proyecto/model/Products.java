@@ -2,7 +2,7 @@ package com.example.proyecto.model;
 
 import android.net.Uri;
 
-public class Products {
+public class Products extends Details {
 
     private String key;
     private Integer id;
@@ -12,6 +12,7 @@ public class Products {
     private Integer quantity;
     private Double cost;
     private Double sale;
+    private int action;
 
     public Products() {
     }
@@ -106,5 +107,13 @@ public class Products {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public int getAction() {
+        return action;
+    }
+
+    public void setAction(int action) {
+        this.action = action;
     }
 }

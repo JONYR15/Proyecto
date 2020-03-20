@@ -1,4 +1,4 @@
-package com.example.proyecto;
+package com.example.proyecto.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,19 +10,24 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import com.example.proyecto.Adapter.InvoiceAdapter;
-import com.example.proyecto.model.Invoice;
+
+import com.example.proyecto.Adapter.CustomerAdapter;
+import com.example.proyecto.Managed.CustomerManaged;
+import com.example.proyecto.R;
+import com.example.proyecto.References;
+import com.example.proyecto.model.Customers;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class InvoiceActivity extends AppCompatActivity {
+public class CustomersActivity extends AppCompatActivity {
 
-    private static List<Invoice> invoices = new ArrayList<>();
+    private static List<Customers> customers = new ArrayList<>();
 
     private DatabaseReference infoReference;
 
@@ -33,7 +38,7 @@ public class InvoiceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_invoice);
+        setContentView(R.layout.activity_customers);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -41,27 +46,30 @@ public class InvoiceActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), InvoiceManaged.class);
+                Intent intent = new Intent(view.getContext(), CustomerManaged.class);
                 intent.putExtra("accion", 1);
                 view.getContext().startActivity(intent);
             }
         });
 
-        infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.INVOICE_REFERENCE);
+
+
+        infoReference = FirebaseDatabase.getInstance().getReference().child(References.INFO_REFERENCE).child(References.CLIENTES_REFERENCE);
 
         infoReference.addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        invoices.clear();
+                        customers.clear();
                         System.out.println(dataSnapshot.getChildrenCount());
                         Log.w("TodoApp", "getUser:onCancelled " + dataSnapshot.toString());
                         Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            Log.d("FragmentActivity","Test Product" + data.getKey());
-                            Invoice invoice = data.getValue(Invoice.class);
-                            invoice.setKey(data.getKey());
-                            invoices.add(invoice);
+                            Log.d("FragmentActivity", "Test Customer" + data.getKey());
+                            Customers customer = data.getValue(Customers.class);
+                            customer.setKey(data.getKey());
+                            customer.setAccion(getIntent().getIntExtra("accion",0));
+                            customers.add(customer);
                         }
 
                         adapter.notifyDataSetChanged();
@@ -82,17 +90,17 @@ public class InvoiceActivity extends AppCompatActivity {
         lManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(lManager);
 
-        adapter = new InvoiceAdapter(invoices);
+        adapter = new CustomerAdapter(customers);
         recycler.setAdapter(adapter);
 
+
     }
 
-
-    public static List<Invoice> getInvoices() {
-        return invoices;
+    public static List<Customers> getCustomers() {
+        return customers;
     }
 
-    public static void setInvoices(List<Invoice> invoices) {
-        InvoiceActivity.invoices = invoices;
+    public static void setCustomers(List<Customers> customers) {
+        CustomersActivity.customers = customers;
     }
 }

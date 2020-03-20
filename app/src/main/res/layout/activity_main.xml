@@ -25,7 +25,7 @@
 
                 <Button
                     android:id="@+id/button2"
-                    android:layout_width="0dp"
+                    android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="50dp"
@@ -40,7 +40,7 @@
 
                 <Button
                     android:id="@+id/button1"
-                    android:layout_width="0dp"
+                    android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="50dp"
@@ -93,7 +93,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="monospace"
-                    android:text="@string/nombreCliente"
+                    android:text="@string/nombre_cliente"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display4"
                     android:textSize="30sp"
@@ -105,7 +105,7 @@
 
                 <Button
                     android:id="@+id/button3"
-                    android:layout_width="0dp"
+                    android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="50dp"

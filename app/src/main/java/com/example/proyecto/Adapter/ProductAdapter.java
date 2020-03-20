@@ -1,33 +1,26 @@
 package com.example.proyecto.Adapter;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.proyecto.Activity.ProductActivity;
+import com.example.proyecto.Managed.InvoiceManaged;
 import com.example.proyecto.Managed.ProductManaged;
-import com.example.proyecto.ProductActivity;
 import com.example.proyecto.R;
-import com.example.proyecto.References;
 import com.example.proyecto.model.Products;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
@@ -43,11 +36,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         private TextView quantity;
         private TextView cost;
         private TextView sale;
+        private ImageButton ibedit;
+        private ImageButton ibdelete;
 
 
         public String key;
         public String nameImage;
-
+        private Integer accion;
 
         public ProductViewHolder(View v) {
             super(v);
@@ -57,6 +52,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             quantity = (TextView) v.findViewById(R.id.tvQuantity);
             cost = (TextView) v.findViewById(R.id.tvCost);
             sale = (TextView) v.findViewById(R.id.tvSale);
+            ibdelete = (ImageButton)v.findViewById(R.id.ibDelete);
+            ibedit = (ImageButton)v.findViewById(R.id.ibEdit);
+
 
             ((ImageButton) v.findViewById(R.id.ibEdit)).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -78,6 +76,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     v.getContext().startActivity(intent);
                     Toast.makeText(v.getContext(), "Eliminar " + description.getText().toString(), Toast.LENGTH_SHORT).show();
                 }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        InvoiceManaged.selectProduct(key);
+                        ((ProductActivity) v.getContext()).finish();
+                    }
+
             });
         }
     }
@@ -108,6 +115,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.quantity.setText("Cantidad:" + items.get(i).getQuantity());
         holder.cost.setText("Costo:" + items.get(i).getCost());
         holder.sale.setText("Venta:" + items.get(i).getSale());
+
+        holder.accion = items.get(i).getAction();
+        if (items.get(i).getAction()==1) {
+            holder.ibedit.setVisibility(Button.VISIBLE);
+            holder.ibdelete.setVisibility(Button.VISIBLE);
+        }else{
+            holder.ibedit.setVisibility(Button.GONE);
+            holder.ibdelete.setVisibility(Button.GONE);
+        }
     }
 
     @Override

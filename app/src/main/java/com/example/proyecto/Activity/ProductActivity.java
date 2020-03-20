@@ -1,4 +1,4 @@
-package com.example.proyecto;
+package com.example.proyecto.Activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +14,8 @@ import android.view.View;
 
 import com.example.proyecto.Adapter.ProductAdapter;
 import com.example.proyecto.Managed.ProductManaged;
+import com.example.proyecto.R;
+import com.example.proyecto.References;
 import com.example.proyecto.model.Products;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -75,8 +77,9 @@ public class ProductActivity extends AppCompatActivity {
                         Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             Log.d("FragmentActivity", "Test Product" + data.getKey());
-                            product = data.getValue(Products.class);
+                            Products product = data.getValue(Products.class);
                             product.setKey(data.getKey());
+                            product.setAction(getIntent().getIntExtra("accion",0));
                             product.setImageUrl(References.getURl(product.getImageProduct()));
 
                             products.add(product);
